@@ -9,6 +9,6 @@ I haven't been programming for that long. Most often I write telegram bots for v
 * 🌍  I'm based in Russia, Orel
 * 🖥️  See my portfolio at [MyWorks](http://github.com/redni-ogy?tab=repositories)
 * ✉️  You can contact me at [nikitarednikin30122004@yandex.ru](mailto:nikitarednikin30122004@yandex.ru)
-* 🚀  I'm currently working on [VimeGo](http://https://github.com/RanderOneLove)
+* 🚀  I'm currently working on [VimeGo](https://github.com/RanderOneLove)
 * 🧠  I'm learning Telegram API, Golang
 * ⚡  Im Admin and Art Chief of minecraft project VimeWorld
