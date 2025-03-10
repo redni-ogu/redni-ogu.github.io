@@ -7,8 +7,11 @@
     <title>Организация фреймовой структуры</title>
  </head>
  <body>
-  <iframe src="menu.html" height="200" width="300" title="меню" align="left">
-    Не работает
-  </iframe>
+    <frameset>
+        <iframe src="menu.html" height="200" width="300" target="CONTENT" title="меню" frameborder="0" align="left">
+            Не работает
+        </iframe>
+        <iframe src="content.html" name="CONTENT"></iframe>
+    </frameset>
  </body>
 </html>
