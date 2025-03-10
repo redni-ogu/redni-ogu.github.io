@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма регистрации пользователя</title>
+    <title>Форма</title>
 </head>
 <body>
     <h1>Форма регистрации пользователя:</h1>
-    <form action="/submit" method="post" class="form-example"> <!-- Updated action attribute -->
+    <form action="#" method="get" class="form-example"> <!-- Updated action attribute -->
         <div class="form-example">
             <label for="email">E-Mail: </label>
-            <input type="email" name="email" id="email" placeholder="Введите ваш E-Mail" required />
+            <input type="email" name="email" id="email" placeholder="Введите ваш E-Mail" required>
         </div>
         <div class="form-example">
             <label for="password">Пароль: </label>
-            <input type="password" name="password" id="password" placeholder="Введите ваш пароль" required />
+            <input type="password" name="password" id="password" placeholder="Введите ваш пароль" required>
         </div>
         <p>Пол: 
-            <input type="radio" name="gender" value="male" id="male" required>
+            <input type="radio" name="gender" value="male" id="male">
             <label for="male">Мужчина</label>
-            <input type="radio" name="gender" value="female" id="female" required>
+            <input type="radio" name="gender" value="female" id="female">
             <label for="female">Женщина</label>
         </p>
         <label for="year">Год рождения:</label>
-        <select id="year" name="year" required>
+        <select id="year" name="year">
             <option value="">Выберите год</option>
         </select>
 
@@ -53,7 +53,7 @@
             <textarea name="about-me" id="about-me" placeholder="Расскажите о себе" required></textarea>
         </div>
         <div class="form-example">
-            <input type="submit" value="Отправить" />
+            <input type="submit" value="Отправить">
         </div>
     </form>
 </body>
