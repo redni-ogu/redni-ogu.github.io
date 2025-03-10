@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма</title>
+    <title>Форма регистрации пользователя</title>
 </head>
 <body>
     <h1>Форма регистрации пользователя:</h1>
-    <form action="" method="get" class="form-example">
+    <form action="/submit" method="post" class="form-example"> <!-- Updated action attribute -->
         <div class="form-example">
             <label for="email">E-Mail: </label>
             <input type="email" name="email" id="email" placeholder="Введите ваш E-Mail" required />
@@ -17,28 +17,29 @@
             <input type="password" name="password" id="password" placeholder="Введите ваш пароль" required />
         </div>
         <p>Пол: 
-            <input type="radio" name="gender" value="male" id="male">
+            <input type="radio" name="gender" value="male" id="male" required>
             <label for="male">Мужчина</label>
-            <input type="radio" name="gender" value="female" id="female">
+            <input type="radio" name="gender" value="female" id="female" required>
             <label for="female">Женщина</label>
         </p>
         <label for="year">Год рождения:</label>
-<select id="year" name="year">
-    <option value="">Выберите год</option>
-</select>
+        <select id="year" name="year" required>
+            <option value="">Выберите год</option>
+        </select>
 
-<script>
-    const startYear = 1980;
-    const endYear = 2018;
-    const yearSelect = document.getElementById('year');
-    
-    for (let year = startYear; year <= endYear; year++) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        yearSelect.appendChild(option);
-    }
-</script>
+        <script>
+            const startYear = 1980;
+            const endYear = 2018;
+            const yearSelect = document.getElementById('year');
+            
+            for (let year = startYear; year <= endYear; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        </script>
+        
         <p>
             <input type="checkbox" id="vehicle1" name="language" value="Russian" checked disabled>
             <label for="vehicle1">Русский</label><br>
