@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+</head>
+<body>
+    <h1>Форма регистрации пользователя:</h1>
+    <form action="" method="get" class="form-example">
+        <div class="form-example">
+            <label for="email">E-Mail: </label>
+            <input type="email" name="email" id="email" placeholder="Введите ваш E-Mail" required />
+        </div>
+        <div class="form-example">
+            <label for="password">Пароль: </label>
+            <input type="password" name="password" id="password" placeholder="Введите ваш пароль" required />
+        </div>
+        <p>Пол: 
+            <input type="radio" name="gender" value="male" id="male">
+            <label for="male">Мужчина</label>
+            <input type="radio" name="gender" value="female" id="female">
+            <label for="female">Женщина</label>
+        </p>
+        <label for="year">Год рождения:</label>
+        <select id="year" name="year">
+            <option value="">Выберите год</option>
+            <script>
+                const startYear = 1980;
+                const endYear = 2018;
+                for (let year = startYear; year <= endYear; year++) {
+                    document.write(`<option value="${year}">${year}</option>`);
+                }
+            </script>
+        </select>
+        <p>
+            <input type="checkbox" id="vehicle1" name="language" value="Russian" checked disabled>
+            <label for="vehicle1">Русский</label><br>
+            <input type="checkbox" id="vehicle2" name="language" value="Spanish">
+            <label for="vehicle2">Испанский</label><br>
+            <input type="checkbox" id="vehicle3" name="language" value="English">
+            <label for="vehicle3">Английский</label>
+        </p>
+        <div class="form-example">
+            <label for="about-me">Напишите о себе:</label>
+            <textarea name="about-me" id="about-me" placeholder="Расскажите о себе" required></textarea>
+        </div>
+        <div class="form-example">
+            <input type="submit" value="Отправить" />
+        </div>
+    </form>
+</body>
+</html>
