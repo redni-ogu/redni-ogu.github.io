@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
- <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Организация фреймовой структуры</title>
- </head>
- <body>
-    <frameset>
-        <iframe src="menu.html" height="200" width="100" target="CONTENT" title="меню" frameborder="0" align="left">
-            Не работает
-        </iframe>
-        <iframe src="content.html" height="800" width="100" name="CONTENT"></iframe>
-    </frameset>
- </body>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        iframe {
+            border: none; 
+        }
+        .menu {
+            width: 300px; 
+            height: 100%; 
+            background-color: #f0f0f0; 
+        }
+        .content {
+            flex-grow: 1;
+            height: 100%; 
+            background-color: #ffffff; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <iframe src="menu.html" class="menu" title="меню"></iframe>
+        <iframe src="content.html" class="content" name="CONTENT"></iframe>
+    </div>
+</body>
 </html>
