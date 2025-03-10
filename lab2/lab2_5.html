@@ -23,15 +23,22 @@
             <label for="female">Женщина</label>
         </p>
         <label for="year">Год рождения:</label>
-        <select id="year" name="year">
-            <option value="">Выберите год</option>
-            <script>
-                const startYear = 1980;
-                const endYear = 2018;
-                for (let year = startYear; year <= endYear; year++) {
-                    document.write(`<option value="${year}">${year}</option>`);
-                }
-            </script>
+<select id="year" name="year">
+    <option value="">Выберите год</option>
+</select>
+
+<script>
+    const startYear = 1980;
+    const endYear = 2018;
+    const yearSelect = document.getElementById('year');
+    
+    for (let year = startYear; year <= endYear; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+    }
+</script>
         </select>
         <p>
             <input type="checkbox" id="vehicle1" name="language" value="Russian" checked disabled>
