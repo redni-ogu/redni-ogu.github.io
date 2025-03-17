@@ -73,3 +73,11 @@ body {
     font-size: 18px;
     box-sizing: border-box;
 }
+
+.wrapper {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
