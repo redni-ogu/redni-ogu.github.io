@@ -21,6 +21,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .input {
@@ -29,6 +30,7 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    outline: none; /* Remove default focus outline */
 }
 
 .banner {
@@ -46,9 +48,12 @@ body {
 
 .table-container {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .table-row {
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -66,4 +71,5 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    box-sizing: border-box;
 }
