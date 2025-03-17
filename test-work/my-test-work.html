@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout Example</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Redesigned Layout</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+            color: #333;
         }
 
         .container {
@@ -25,44 +25,48 @@
 
         .input-container {
             width: 100%;
-            background-color: #0ca1ff;
+            background-color: #007BFF;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .input {
-            width: 90%;
+            width: 80%;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             outline: none;
+            padding: 10px;
         }
 
         .banner {
-            width: 500px;
-            height: 200px; 
-            background-color: #0ca1ff;
+            width: 100%;
+            background-color: #007BFF;
             border-radius: 10px 10px 0 0;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
             color: white;
-            font-size: 24px;
+            font-size: 18px;
         }
 
         .table-container {
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .table-row {
             width: 100%;
             display: flex;
             justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         .table-cell {
@@ -75,10 +79,12 @@
             background-color: #e0e0e0;
             border-radius: 10px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-size: 18px;
             box-sizing: border-box;
+            padding: 20px;
         }
 
         .wrapper {
@@ -95,33 +101,102 @@
     <div class="container">
         <div class="wrapper">
             <div class="input-container">
-                <input type="text" class="input" placeholder="Введи никнейм">
+                <input type="text" class="input" placeholder="Введи никнейм" id="usernameInput">
+                <button onclick="fetchUserData()">Поиск</button>
             </div>
-            <div class="banner">
-                <p>Тест</p>
+            <div class="banner" id="banner">
+                <p>Ваша прекрасная статистика</p>
             </div>
-            <div class="table-container">
-                <div class="table-row">
-                    <div class="table-cell">
-                        <article>
-                            <div class="info-box">
-                                <h5>Статистика 1:</h5>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="table-cell">
-                        <article>
-                            <div class="info-box">Info 2</div>
-                        </article>
-                    </div>
-                    <div class="table-cell">
-                        <article>
-                            <div class="info-box">Info 3</div>
-                        </article>
-                    </div>
-                </div>
+            <div class="table-container" id="tableContainer">
+                <!-- Info boxes will be dynamically inserted here -->
             </div>
         </div>
     </div>
+
+    <script>
+        async function fetchUserData() {
+            const username = document.getElementById('usernameInput').value;
+            const userApiUrl = `https://api.vimeworld.com/user/name/${username}`;
+
+            try {
+                const userResponse = await fetch(userApiUrl);
+                const userData = await userResponse.json();
+
+                if (userData.length > 0) {
+                    const user = userData[0];
+                    const userId = user.id;
+                    const statsApiUrl = `https://api.vimeworld.com/user/${userId}/stats`;
+
+                    const statsResponse = await fetch(statsApiUrl);
+                    const statsData = await statsResponse.json();
+
+                    updateBanner(user);
+                    updateTable(statsData.stats);
+                } else {
+                    alert('Пользователь не найден');
+                }
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error);
+                alert('Произошла ошибка при получении данных');
+            }
+        }
+
+        function updateBanner(user) {
+            const banner = document.getElementById('banner');
+            banner.innerHTML = `
+                <br><p>Никнейм: ${user.username}</p>
+                <br><p>Уровень: ${user.level}</p>
+                <br><p>Ранг: ${user.rank}</p>
+                <br><p>Наигранное время: ${formatPlayedTime(user.playedSeconds)}</p>
+                <br><p>Последний вход: ${new Date(user.lastSeen * 1000).toLocaleString()}</p>
+                <br><p>Прайм: ${user.prime ? 'Да' : 'Нет'}</p>
+            `;
+        }
+
+        function updateTable(stats) {
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+
+            let tableRow = document.createElement('div');
+            tableRow.classList.add('table-row');
+
+            let count = 0;
+            for (const [game, data] of Object.entries(stats)) {
+                const tableCell = document.createElement('div');
+                tableCell.classList.add('table-cell');
+
+                const infoBox = document.createElement('div');
+                infoBox.classList.add('info-box');
+                infoBox.innerHTML = `
+                    <h5>${game}:</h5>
+                    <p>${formatGameStats(data.global)}</p>
+                `;
+
+                tableCell.appendChild(infoBox);
+                tableRow.appendChild(tableCell);
+
+                count++;
+                if (count % 3 === 0) {
+                    tableContainer.appendChild(tableRow);
+                    tableRow = document.createElement('div');
+                    tableRow.classList.add('table-row');
+                }
+            }
+
+            if (count % 3 !== 0) {
+                tableContainer.appendChild(tableRow);
+            }
+        }
+
+        function formatPlayedTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            return `${hours} часов ${minutes} минут`;
+        }
+
+        function formatGameStats(stats) {
+            return Object.entries(stats).map(([key, value]) => `${key}: ${value}`).join('<br>');
+        }
+    </script>
 </body>
 </html>
