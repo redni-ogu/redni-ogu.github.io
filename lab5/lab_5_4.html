@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Использование flex для колонок</title>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+}
+#left {
+    width: 200px;
+    background: #ccf;
+    box-sizing: border-box;
+    padding: 10px;
+}
+#right {
+    width: 200px;
+    background: #fcc;
+    box-sizing: border-box;
+    padding: 10px;
+}
+#center {
+    width: 600px;
+    background: #cfc;
+    box-sizing: border-box;
+    padding: 10px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div id="left">left<br>left<br>left<br>left<br>left</div>
+        <div id="center">center text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text</div>
+        <div id="right">right<br>right<br>right<br>right</div>
+    </div>
+</body>
+</html>

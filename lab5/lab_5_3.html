@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Использование inline-block для колонок</title>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+}
+.column {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 10px;
+}
+#left {
+    width: 200px;
+    background: #ccf;
+}
+#right {
+    width: 200px;
+    background: #fcc;
+}
+#center {
+    width: 600px;
+    background: #cfc;
+}
+</style>
+</head>
+<body>
+    <div id="left" class="column">left<br>left<br>left<br>left<br>left</div>
+    <div id="center" class="column">center text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text</div>
+    <div id="right" class="column">right<br>right<br>right<br>right</div>
+</body>
+</html>
