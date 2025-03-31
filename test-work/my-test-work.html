@@ -1,202 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redesigned Layout</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            color: #333;
-        }
+<!-- saved from url=(0054)https://tilda.ru/page/?pageid=49644607&previewmode=yes -->
+<html lang="en" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="VimeWorld User Statistics">
+	<meta name="author" content="">
+	<meta name="csrf" content="" id="csrf">
+	<link rel="shortcut icon" href="https://tilda.ru/img/tildafavicon.ico">
+	<link rel="icon" href="https://tilda.ru/img/tildafavicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="https://tilda.ru/img/tildafavicon-180x180.png" type="image/png">
 
-        .container {
-            width: 960px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+	<title>VimeWorld User Statistics</title>
 
-        .input-container {
-            width: 100%;
-            background-color: #007BFF;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+	<link href="./files/t-normalize.min.css" rel="stylesheet">
+	<link href="./files/t-page-all.min.css" rel="stylesheet">
+	<link href="./files/t-page-edit-all.min.css" rel="stylesheet">
+	<link href="./files/t-common.min.css" rel="stylesheet">
+	<link href="./files/td-uikit.min.css" rel="stylesheet">
+	<link href="./files/t-futurapt.min.css" rel="stylesheet">
+	<link href="./files/t-popups.min.css" rel="stylesheet">
 
-        .input {
-            width: 80%;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            padding: 10px;
-        }
+	<style data-tpl-id="user-stats">
+		.t-user-stats {
+			width: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		
+		.t-user-stats__input-container {
+			width: 100%;
+			background-color: #007BFF;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 20px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.t-user-stats__input {
+			width: 80%;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			outline: none;
+			padding: 10px;
+			font-family: 'TildaSans', Arial, sans-serif;
+		}
+		
+		.t-user-stats__banner {
+			width: 100%;
+			background-color: #007BFF;
+			border-radius: 10px 10px 0 0;
+			margin-bottom: 20px;
+			padding: 20px;
+			box-sizing: border-box;
+			color: white;
+			font-size: 18px;
+		}
+		
+		.t-user-stats__table-container {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+		
+		.t-user-stats__table-row {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 20px;
+		}
+		
+		.t-user-stats__table-cell {
+			width: 30%;
+		}
+		
+		.t-user-stats__info-box {
+			width: 100%;
+			height: 300px;
+			background-color: #e0e0e0;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: 18px;
+			box-sizing: border-box;
+			padding: 20px;
+			font-family: 'TildaSans', Arial, sans-serif;
+		}
+		
+		.t-user-stats__wrapper {
+			max-width: 1080px;
+			margin-left: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
 
-        .banner {
-            width: 100%;
-            background-color: #007BFF;
-            border-radius: 10px 10px 0 0;
-            margin-bottom: 20px;
-            padding: 20px;
-            box-sizing: border-box;
-            color: white;
-            font-size: 18px;
-        }
+		@media screen and (max-width: 980px) {
+			.t-user-stats__table-cell {
+				width: 45%;
+			}
+		}
 
-        .table-container {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+		@media screen and (max-width: 640px) {
+			.t-user-stats__table-cell {
+				width: 100%;
+			}
+			
+			.t-user-stats__input-container {
+				flex-direction: column;
+				gap: 10px;
+			}
+			
+			.t-user-stats__input {
+				width: 100%;
+			}
+		}
+	</style>
 
-        .table-row {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
+	<script type="text/javascript">
+		window.onerror = function (m, f, l, c, e) {
+			if (!window.td_jserrors) {window.td_jserrors = [];}
+			window.td_jserrors.push({
+				message: m,
+				filename: f,
+				lineno: l,
+				colno: c,
+				error: e
+			});
+		};
 
-        .table-cell {
-            width: 30%;
-        }
+		async function fetchUserData() {
+			const username = document.getElementById('usernameInput').value;
+			const userApiUrl = `https://api.vimeworld.com/user/name/${username}`;
 
-        .info-box {
-            width: 100%;
-            height: 300px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            box-sizing: border-box;
-            padding: 20px;
-        }
+			try {
+				const userResponse = await fetch(userApiUrl);
+				const userData = await userResponse.json();
 
-        .wrapper {
-            max-width: 1080px;
-            margin-left: 10px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
+				if (userData.length > 0) {
+					const user = userData[0];
+					const userId = user.id;
+					const statsApiUrl = `https://api.vimeworld.com/user/${userId}/stats`;
+
+					const statsResponse = await fetch(statsApiUrl);
+					const statsData = await statsResponse.json();
+
+					updateBanner(user);
+					updateTable(statsData.stats);
+				} else {
+					alert('Пользователь не найден');
+				}
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error);
+				alert('Произошла ошибка при получении данных');
+			}
+		}
+
+		function updateBanner(user) {
+			const banner = document.getElementById('banner');
+			banner.innerHTML = `
+				<br><p>Никнейм: ${user.username}</p>
+				<br><p>Уровень: ${user.level}</p>
+				<br><p>Ранг: ${user.rank}</p>
+				<br><p>Наигранное время: ${formatPlayedTime(user.playedSeconds)}</p>
+				<br><p>Последний вход: ${new Date(user.lastSeen * 1000).toLocaleString()}</p>
+				<br><p>Прайм: ${user.prime ? 'Да' : 'Нет'}</p>
+			`;
+		}
+
+		function updateTable(stats) {
+			const tableContainer = document.getElementById('tableContainer');
+			tableContainer.innerHTML = '';
+
+			let tableRow = document.createElement('div');
+			tableRow.classList.add('t-user-stats__table-row');
+
+			let count = 0;
+			for (const [game, data] of Object.entries(stats)) {
+				const tableCell = document.createElement('div');
+				tableCell.classList.add('t-user-stats__table-cell');
+
+				const infoBox = document.createElement('div');
+				infoBox.classList.add('t-user-stats__info-box');
+				infoBox.innerHTML = `
+					<h5>${game}:</h5>
+					<p>${formatGameStats(data.global)}</p>
+				`;
+
+				tableCell.appendChild(infoBox);
+				tableRow.appendChild(tableCell);
+
+				count++;
+				if (count % 3 === 0) {
+					tableContainer.appendChild(tableRow);
+					tableRow = document.createElement('div');
+					tableRow.classList.add('t-user-stats__table-row');
+				}
+			}
+
+			if (count % 3 !== 0) {
+				tableContainer.appendChild(tableRow);
+			}
+		}
+
+		function formatPlayedTime(seconds) {
+			const hours = Math.floor(seconds / 3600);
+			const minutes = Math.floor((seconds % 3600) / 60);
+			return `${hours} часов ${minutes} минут`;
+		}
+
+		function formatGameStats(stats) {
+			return Object.entries(stats).map(([key, value]) => `${key}: ${value}`).join('<br>');
+		}
+	</script>
 </head>
-<body>
-    <div class="container">
-        <div class="wrapper">
-            <div class="input-container">
-                <input type="text" class="input" placeholder="Введи никнейм" id="usernameInput">
-                <button onclick="fetchUserData()">Поиск</button>
-            </div>
-            <div class="banner" id="banner">
-                <p>Ваша прекрасная статистика</p>
-            </div>
-            <div class="table-container" id="tableContainer">
-                <!-- Info boxes will be dynamically inserted here -->
-            </div>
-        </div>
-    </div>
 
-    <script>
-        async function fetchUserData() {
-            const username = document.getElementById('usernameInput').value;
-            const userApiUrl = `https://api.vimeworld.com/user/name/${username}`;
+<body style="margin: 0px; overflow-x: hidden;" data-lang="RU" data-country="RU" data-ready-status="ready" class="tp-preview-inited">
 
-            try {
-                const userResponse = await fetch(userApiUrl);
-                const userData = await userResponse.json();
+<div class="t-user-stats">
+	<div class="t-user-stats__wrapper">
+		<div class="t-user-stats__input-container">
+			<input type="text" class="t-user-stats__input" placeholder="Введи никнейм" id="usernameInput">
+			<button onclick="fetchUserData()" class="t-btn">Поиск</button>
+		</div>
+		<div class="t-user-stats__banner" id="banner">
+			<p>Ваша прекрасная статистика</p>
+		</div>
+		<div class="t-user-stats__table-container" id="tableContainer">
+			<!-- Info boxes will be dynamically inserted here -->
+		</div>
+	</div>
+</div>
 
-                if (userData.length > 0) {
-                    const user = userData[0];
-                    const userId = user.id;
-                    const statsApiUrl = `https://api.vimeworld.com/user/${userId}/stats`;
-
-                    const statsResponse = await fetch(statsApiUrl);
-                    const statsData = await statsResponse.json();
-
-                    updateBanner(user);
-                    updateTable(statsData.stats);
-                } else {
-                    alert('Пользователь не найден');
-                }
-            } catch (error) {
-                console.error('Ошибка при получении данных:', error);
-                alert('Произошла ошибка при получении данных');
-            }
-        }
-
-        function updateBanner(user) {
-            const banner = document.getElementById('banner');
-            banner.innerHTML = `
-                <br><p>Никнейм: ${user.username}</p>
-                <br><p>Уровень: ${user.level}</p>
-                <br><p>Ранг: ${user.rank}</p>
-                <br><p>Наигранное время: ${formatPlayedTime(user.playedSeconds)}</p>
-                <br><p>Последний вход: ${new Date(user.lastSeen * 1000).toLocaleString()}</p>
-                <br><p>Прайм: ${user.prime ? 'Да' : 'Нет'}</p>
-            `;
-        }
-
-        function updateTable(stats) {
-            const tableContainer = document.getElementById('tableContainer');
-            tableContainer.innerHTML = '';
-
-            let tableRow = document.createElement('div');
-            tableRow.classList.add('table-row');
-
-            let count = 0;
-            for (const [game, data] of Object.entries(stats)) {
-                const tableCell = document.createElement('div');
-                tableCell.classList.add('table-cell');
-
-                const infoBox = document.createElement('div');
-                infoBox.classList.add('info-box');
-                infoBox.innerHTML = `
-                    <h5>${game}:</h5>
-                    <p>${formatGameStats(data.global)}</p>
-                `;
-
-                tableCell.appendChild(infoBox);
-                tableRow.appendChild(tableCell);
-
-                count++;
-                if (count % 3 === 0) {
-                    tableContainer.appendChild(tableRow);
-                    tableRow = document.createElement('div');
-                    tableRow.classList.add('table-row');
-                }
-            }
-
-            if (count % 3 !== 0) {
-                tableContainer.appendChild(tableRow);
-            }
-        }
-
-        function formatPlayedTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            return `${hours} часов ${minutes} минут`;
-        }
-
-        function formatGameStats(stats) {
-            return Object.entries(stats).map(([key, value]) => `${key}: ${value}`).join('<br>');
-        }
-    </script>
 </body>
 </html>
