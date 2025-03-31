@@ -5,74 +5,75 @@
     <title>Меню на CSS</title>
     <style>
         html {
-            background: #f0f0f0;
-        }
-        
-        .menu {
-            width: 200px;
-            background: #fff;
-            font-family: Arial, sans-serif;
-            border-radius: 5px;
-            padding: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.2);
-        }
-        
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .menu > ul > li {
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .menu li a {
-            display: block;
-            border-radius: 5px;
-            padding: 8px 10px 8px 25px;
-            color: #333;
-            text-decoration: none;
-            position: relative;
-        }
-        
-        .menu li a:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .menu > ul > li > a::before {
-            content: "";
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            background: url('assets/plus.gif') no-repeat;
-            cursor: pointer;
-        }
-        
-        .menu li li a::before {
-            background: url('assets/point.gif') no-repeat;
-            cursor: text;
-        }
-        
-        .menu li > ul {
-            display: none;
-            padding-left: 15px;
-        }
-        
-        .menu > ul > li:hover > ul,
-        .menu > ul > li:focus-within > ul,
-        .menu > ul > li > a:focus + ul {
-            display: block;
-        }
-        
-        .menu > ul > li:hover > a::before,
-        .menu > ul > li:focus-within > a::before,
-        .menu > ul > li > a:focus::before {
-            background: url('assets/minus.gif') no-repeat;
-        }
+    background: #f0f0f0;
+}
+
+.menu {
+    width: 200px;
+    background: #fff;
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu > ul > li {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.menu li a {
+    display: block;
+    border-radius: 5px;
+    padding: 8px 10px 8px 25px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+}
+
+.menu li a:hover {
+    background-color: #f5f5f5;
+}
+
+.menu > ul > li > a::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: url('assets/css_sprites.png') no-repeat -46px -10px; /* bg-plus */
+    cursor: pointer;
+}
+
+.menu li li a::before {
+    background: url('assets/css_sprites.png') no-repeat -10px -10px; /* bg-point */
+    cursor: text;
+}
+
+.menu li > ul {
+    display: none;
+    padding-left: 15px;
+}
+
+.menu > ul > li:hover > ul,
+.menu > ul > li:focus-within > ul,
+.menu > ul > li > a:focus + ul {
+    display: block;
+}
+
+.menu > ul > li:hover > a::before,
+.menu > ul > li:focus-within > a::before,
+.menu > ul > li > a:focus::before {
+    background: url('assets/css_sprites.png') no-repeat -10px -46px; /* bg-minus */
+}
+
     </style>
 </head>
 <body>
