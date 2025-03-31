@@ -59,49 +59,49 @@
         <ul>
             <li>
                 <a href="#">
-                    <img src="assets/plus.gif" class="menu-icon toggle-icon">
+                    <img src="assets/plus.gif" class="menu-icon toggle-icon" alt="Раскрыть меню">
                     Фильмы
                 </a>
                 <ul>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Экшн</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Мелодрамы</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Сериалы</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Семейные</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Экшн</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Мелодрамы</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Сериалы</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Семейные</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">
-                    <img src="plus.gif" class="menu-icon toggle-icon">
+                    <img src="assets/plus.gif" class="menu-icon toggle-icon" alt="Раскрыть меню">
                     Музыка
                 </a>
                 <ul>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Классика</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Джаз</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Рок</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Грандж</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Классика</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Джаз</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Рок</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Грандж</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">
-                    <img src="plus.gif" class="menu-icon toggle-icon">
+                    <img src="assets/plus.gif" class="menu-icon toggle-icon" alt="Раскрыть меню">
                     Софт
                 </a>
                 <ul>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Графика</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">3D-моделирование</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Машинопись</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Переводчики</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Графика</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">3D-моделирование</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Машинопись</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Переводчики</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">
-                    <img src="plus.gif" class="menu-icon toggle-icon">
+                    <img src="assets/plus.gif" class="menu-icon toggle-icon" alt="Раскрыть меню">
                     Игры
                 </a>
                 <ul>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">РПГ</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Шутеры</a></li>
-                    <li><a href="#"><img src="assets/point.gif" class="menu-icon">Пасьянсы</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">РПГ</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Шутеры</a></li>
+                    <li><a href="#"><img src="assets/point.gif" class="menu-icon" alt="">Пасьянсы</a></li>
                 </ul>
             </li>
         </ul>
@@ -120,17 +120,20 @@
                     if (parentLi.classList.contains('active')) {
                         parentLi.classList.remove('active');
                         icon.src = 'assets/plus.gif';
+                        icon.alt = 'Раскрыть меню';
                     } else {
-
                         document.querySelectorAll('.menu > ul > li.active').forEach(function(openItem) {
                             if (openItem !== parentLi) {
                                 openItem.classList.remove('active');
-                                openItem.querySelector('.toggle-icon').src = 'assets/plus.gif';
+                                var openIcon = openItem.querySelector('.toggle-icon');
+                                openIcon.src = 'assets/plus.gif';
+                                openIcon.alt = 'Раскрыть меню';
                             }
                         });
                         
                         parentLi.classList.add('active');
                         icon.src = 'assets/minus.gif';
+                        icon.alt = 'Свернуть меню';
                     }
                 });
             });
