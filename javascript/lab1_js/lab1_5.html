@@ -59,16 +59,14 @@
                 
                 const startPos = i % pattern.length;
                 
-                
                 for (let j = 0; j < 6; j++) {
                     const patternIndex = (startPos + j) % pattern.length;
                     row.push(pattern[patternIndex]);
                 }
                 
-               
+                // Табуляция
                 table += row.join('\t') + '\n';
             }
-            
             
             console.log(table);
             alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
