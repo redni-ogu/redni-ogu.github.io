@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Ввод числа</h1>
-        <a id="getNumberLink" href="https://redni-ogu.github.io/">Получить число</a>
+        <a id="getNumberLink" href="#">Получить число</a>
     </div>
 
     <script>
@@ -25,10 +25,7 @@
                 userInput = prompt("Введите число больше 100:");
                 
                 if (userInput === null) {
-                    const userConfirmed = confirm("Вы отменили ввод. Перейти на главную страницу?");
-                    if (userConfirmed) {
-                        window.location.href = this.href;
-                    }
+                    alert("Ввод отменен.");
                     return;
                 }
 
@@ -36,12 +33,12 @@
                 
                 if (!isNaN(number) && number > 100) {
                     isValid = true;
+                    alert(`Вы ввели корректное число: ${number}`);
+                    window.location.href = "https://redni-ogu.github.io/js_lab_1_index.html";
                 } else {
                     alert("Пожалуйста, введите число больше 100.");
                 }
             }
-
-            window.location.href = this.href;
         });
     </script>
 </body>
