@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица животных</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input {
+            padding: 8px;
+            width: 100px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 120px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Генератор таблицы животных</h1>
+    <div class="container">
+        <label for="rows">Количество строк:</label>
+        <input type="number" id="rows" min="1" value="5">
+        <button onclick="drawTable()">Рисовать</button>
+    </div>
+
+    <script>
+        function drawTable() {
+            const rowsInput = document.getElementById('rows');
+            const rows = parseInt(rowsInput.value);
+            
+            if (isNaN(rows) || rows < 1) {
+                alert('Пожалуйста, введите корректное число строк (больше 0)');
+                return;
+            }
+            
+            const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
+            let table = '';
+            
+            for (let i = 0; i < rows; i++) {
+                let row = [];
+                
+                const startPos = i % pattern.length;
+                
+                
+                for (let j = 0; j < 6; j++) {
+                    const patternIndex = (startPos + j) % pattern.length;
+                    row.push(pattern[patternIndex]);
+                }
+                
+               
+                table += row.join('\t') + '\n';
+            }
+            
+            
+            console.log(table);
+            alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
+        }
+    </script>
+</body>
+</html>
