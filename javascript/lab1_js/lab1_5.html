@@ -18,31 +18,32 @@
 
     <script>
         function drawTable() {
-        const rowsInput = document.getElementById('rows');
-        const rows = parseInt(rowsInput.value);
-            
-        if (isNaN(rows) || rows < 1) {
-            alert('Пожалуйста, введите корректное число строк (больше 0)');
-            return;
-        }
+            console.log("Нажата кнопка");
+            const rowsInput = document.getElementById('rows');
+            const rows = parseInt(rowsInput.value);
 
-        const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
-        const table = [];
-
-        for (let i = 0; i < rows; i++) {
-            const row = {};
-            const startPos = i % pattern.length;
-
-            for (let j = 0; j < 6; j++) {
-                const patternIndex = (startPos + j) % pattern.length;
-                row[`Col ${j + 1}`] = pattern[patternIndex];
+            if (isNaN(rows) || rows < 1) {
+                alert('Пожалуйста, введите корректное число строк (больше 0)');
+                return;
             }
 
-            table.push(row);
-        }
+            const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
+            const table = [];
 
-        console.table(table); // Выводим таблицу в консоль
-        alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
+            for (let i = 0; i < rows; i++) {
+                const row = {};
+                const startPos = i % pattern.length;
+
+                for (let j = 0; j < 6; j++) {
+                    const patternIndex = (startPos + j) % pattern.length;
+                    row[`Col ${j + 1}`] = pattern[patternIndex];
+                }
+
+                table.push(row);
+            }
+
+            console.table(table); // Выводим таблицу в консоль
+            alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
         }
     </script>
 </body>
