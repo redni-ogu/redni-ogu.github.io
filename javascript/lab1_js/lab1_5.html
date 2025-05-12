@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Генератор таблицы животных</h1>
         <form id="line">
-            <label for="num">Количество строк:</label>
+            <label for="rows">Количество строк:</label>  <!-- Changed "num" to "rows" -->
             <input type="number" id="rows" min="1" value="5"><br><br>
             <button type="button" onclick="drawTable()">Рисовать</button>
         </form>
@@ -18,31 +18,31 @@
 
     <script>
         function drawTable() {
-            const rowsInput = document.getElementById('rows');
-            const rows = parseInt(rowsInput.value);
+        const rowsInput = document.getElementById('rows');
+        const rows = parseInt(rowsInput.value);
             
-            if (isNaN(rows) || rows < 1) {
-                alert('Пожалуйста, введите корректное число строк (больше 0)');
-                return;
+        if (isNaN(rows) || rows < 1) {
+            alert('Пожалуйста, введите корректное число строк (больше 0)');
+            return;
+        }
+
+        const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
+        const table = [];
+
+        for (let i = 0; i < rows; i++) {
+            const row = {};
+            const startPos = i % pattern.length;
+
+            for (let j = 0; j < 6; j++) {
+                const patternIndex = (startPos + j) % pattern.length;
+                row[`Col ${j + 1}`] = pattern[patternIndex];
             }
-            
-            const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
-            let table = '';
-            
-            for (let i = 0; i < rows; i++) {
-                let row = [];
-                const startPos = i % pattern.length;
-                
-                for (let j = 0; j < 6; j++) {
-                    const patternIndex = (startPos + j) % pattern.length;
-                    row.push(pattern[patternIndex]);
-                }
-                
-                table += row.join('\t') + '\n';
-            }
-            
-            console.log(table);
-            alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
+
+            table.push(row);
+        }
+
+        console.table(table); // Выводим таблицу в консоль
+        alert('Таблица успешно выведена в консоль! Откройте консоль браузера (F12) чтобы увидеть результат.');
         }
     </script>
 </body>
