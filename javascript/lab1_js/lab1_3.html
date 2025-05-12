@@ -25,7 +25,10 @@
                 userInput = prompt("Введите число больше 100:");
                 
                 if (userInput === null) {
-                    alert("Ввод отменен.");
+                    const shouldRedirect = confirm("Ввод отменен. Хотите перейти на главную страницу?");
+                    if (shouldRedirect) {
+                        window.location.href = "https://redni-ogu.github.io/js_lab_1_index.html";
+                    }
                     return;
                 }
 
