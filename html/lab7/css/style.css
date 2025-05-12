@@ -1,0 +1,27 @@
+.logo {
+    height: 50px;
+}
+
+.banner {
+    min-height: 500px;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-item .overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 1rem;
+    transition: all 0.3s;
+}
+
+.portfolio-item:hover .overlay {
+    bottom: 0;
+}
