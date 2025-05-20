@@ -58,8 +58,14 @@ export function camelize(str) {
   }).join('');
 }
 
-// Импортируем fib из lab2.js и переименовываем в fibs
-import { fib as fibs } from '../lab2_js/lab2.js';
+// Импортируем fib из lab2.js
+import { fib } from '../lab2_js/lab2.js';
+
+// Экспортируем функцию fibs, которая использует fib
+export function fibs(n) {
+    return fib(n);
+}
+
 
 /**
  * Returns a new array sorted in descending order without modifying the original.
