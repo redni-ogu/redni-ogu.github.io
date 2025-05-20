@@ -54,11 +54,12 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase.
  */
 function camelize(str) {
-    return str.replace(/([^-_])([-_])([^-_])/g, (_, before, sep, after) => 
-        before + after.toUpperCase()
-    ).replace(/([^_])(_)([^_])/g, (_, before, sep, after) =>
-        before + after.toUpperCase()
-    );
+    const tempMarker = '___TEMP___';
+    str = str.replace(/__/g, tempMarker);
+    str = str.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
+    str = str.replace(new RegExp(tempMarker, 'g'), '__');
+
+    return str;
 }
 
 /**
