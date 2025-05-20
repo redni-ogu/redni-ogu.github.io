@@ -59,16 +59,15 @@ function truncate(str, maxlength) {
 }
 
 /**
- * Преобразует строку с дефисами и подчеркиваниями в camelCase
+образует строку с дефисами и подчеркиваниями в camelCase, сохраняя символы в первом слове
  * @param {string} str - Исходная строка
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    const tempMarker = '___DOUBLE_UNDERSCORE___';
-    str = str.replace(/__/g, tempMarker);
-    str = str.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
-    str = str.replace(new RegExp(tempMarker, 'g'), '__');
-    return str;
+    // Разделяем только по одиночным дефисам/подчеркиваниям, которые стоят перед буквой
+    return str.replace(/([-_])([a-zA-Z])/g, (_, separator, letter) => {
+        return letter.toUpperCase();
+    });
 }
 
 /**
