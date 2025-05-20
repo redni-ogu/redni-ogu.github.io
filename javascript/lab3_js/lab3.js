@@ -99,23 +99,7 @@ function ucFirst(str) {
     return str[0].toUpperCase() + str.slice(1);
 }
 
-/**
- * Возвращает массив чисел Фибоначчи до n-го (не включая его).
- * @param {number} n - Количество чисел Фибоначчи.
- * @returns {bigint[]} Массив чисел Фибоначчи.
- */
-function fibs(n) {
-    // Добавлена проверка входного параметра
-    if (typeof n !== 'number' || n < 0) return [];
-    if (n === 0) return [];
-    if (n === 1) return [0n];
-    
-    const sequence = [0n, 1n];
-    for (let i = 2; i < n; i++) {
-        sequence.push(sequence[i - 1] + sequence[i - 2]);
-    }
-    return sequence;
-}
+import { fib } from '../lab2_js/lab2.js'; 
 
 /**
  * Возвращает новый массив, отсортированный по убыванию.
