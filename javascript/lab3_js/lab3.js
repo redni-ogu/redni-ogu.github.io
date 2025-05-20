@@ -1,11 +1,13 @@
 /**
- * Возвращает дробную часть числа.
- * @param {number} num - Исходное число.
- * @returns {number} Дробная часть числа.
+ * Возвращает дробную часть числа с точностью до 2 знаков после запятой
+ * @param {number} num - Исходное число
+ * @returns {number} Дробная часть числа (0..0.99)
  */
 function getDecimal(num) {
-    const fractional = Math.abs(num) - Math.floor(Math.abs(num));
-    return num >= 0 ? fractional : 1 - fractional;
+    const absNum = Math.abs(num);
+    const fractional = absNum - Math.floor(absNum);
+    const rounded = Math.round(fractional * 1e12) / 1e12;
+    return num >= 0 ? parseFloat(rounded.toFixed(2)) : parseFloat((1 - rounded).toFixed(2));
 }
 
 /**
@@ -52,12 +54,9 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase.
  */
 function camelize(str) {
-    return str.split(/[-_]+/).map((word, index) => {
-        if (index === 0) {
-            return word;
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join('');
+    return str.replace(/([-_])(.)/g, (_, sep, c) => 
+        sep === '_' && c === '_' ? '__' : c.toUpperCase()
+    );
 }
 
 /**
