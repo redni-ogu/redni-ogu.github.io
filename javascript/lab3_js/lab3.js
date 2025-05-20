@@ -3,7 +3,7 @@
  * @param {number} num - Исходное число
  * @returns {number} Дробная часть числа (0..0.99)
  */
-function getDecimal(num) {
+export function getDecimal(num) {
     const absNum = Math.abs(num);
     const fractional = absNum - Math.floor(absNum);
     const rounded = Math.round(fractional * 1e12) / 1e12;
