@@ -64,15 +64,13 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    // Обрабатываем все случаи, кроме двойных подчеркиваний
-    return str
-        // Заменяем -x или _x на X (кроме случаев с двойным __)
-        .replace(/([^-_])[-_]([^-_])/g, (_, before, after) => before + after.toUpperCase())
-        // Удаляем оставшиеся одиночные - и _
-        .replace(/[-_]/g, '')
-        // Восстанавливаем двойные подчеркивания
-        .replace(/undefined/g, '__');  // Временная замена для сохранения __
+    const tempMarker = '___DOUBLE_UNDERSCORE___';
+    str = str.replace(/__/g, tempMarker);
+    str = str.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
+    str = str.replace(new RegExp(tempMarker, 'g'), '__');
+    return str;
 }
+
 /**
  * Преобразует первую букву строки в верхний регистр
  * @param {string} str - Исходная строка
