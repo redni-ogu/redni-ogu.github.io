@@ -1,12 +1,13 @@
 /**
- * Returns the decimal part of a number.
- * For negative numbers, the decimal part is adjusted to be a positive value.
- * @param {number} num - The input number.
- * @returns {number} The decimal part of the number.
+ * Возвращает дробную часть числа с точностью до 2 знаков после запятой
+ * @param {number} num - Исходное число
+ * @returns {number} Дробная часть числа (0..0.99)
  */
-export function getDecimal(num) {
-  const decimal = Math.abs(num % 1);
-  return num < 0 ? 1 - decimal : decimal;
+function getDecimal(num) {
+    const absNum = Math.abs(num);
+    const fractional = absNum - Math.floor(absNum);
+    const rounded = Math.round(fractional * 1e12) / 1e12;
+    return num >= 0 ? parseFloat(rounded.toFixed(2)) : parseFloat((1 - rounded).toFixed(2));
 }
 
 /**
@@ -57,18 +58,16 @@ export function camelize(str) {
   }).join('');
 }
 
+// Импортируем fib из lab2.js и переименовываем в fibs
+import { fib as fibs } from '../lab2_js/lab2.js';
+
 /**
- * Generates an array of Fibonacci numbers up to the nth element (exclusive).
- * @param {number} n - The number of elements to generate.
- * @returns {bigint[]} An array of Fibonacci numbers.
+ * Generates an array of Fibonacci numbers up to the nth element (exclusive)
+ * @param {number} n - Number of elements to generate
+ * @returns {bigint[]} Array of Fibonacci numbers
  */
 export function fibs(n) {
-  // Временная реализация, если lab2.js недоступен
-  const result = [0n, 1n];
-  for (let i = 2; i < n; i++) {
-    result[i] = result[i-1] + result[i-2];
-  }
-  return result.slice(0, n);
+  return Array.from({ length: n }, (_, i) => fibs(i));
 }
 
 /**
