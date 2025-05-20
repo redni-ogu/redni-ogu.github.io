@@ -53,7 +53,7 @@ function truncate(str, maxlength) {
  * @param {string} str - Исходная строка
  * @returns {string} Строка в camelCase
  */
-export function camelize(str) {
+function camelize(str) {
     // Разделяем только по одиночным дефисам/подчеркиваниям, которые стоят перед буквой
     return str.replace(/([-_])([a-zA-Z])/g, (_, separator, letter) => {
         return letter.toUpperCase();
