@@ -49,18 +49,34 @@ function truncate(str, maxlength) {
 }
 
 /**
- * Преобразует строку с дефисами в camelCase.
- * @param {string} str - Исходная строка.
- * @returns {string} Строка в camelCase.
+ * Преобразует первый символ строки в верхний регистр
+ * @param {string} str - Входная строка
+ * @returns {string} Строка с первой буквой в верхнем регистре
+ */
+function ucFirst(str) {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
+}
+
+/**
+ * Преобразует строку с дефисами и подчеркиваниями в camelCase
+ * @param {string} str - Входная строка
+ * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    return str
-        // Обрабатываем одиночные - и _, следующий символ — в верхний регистр
-        .replace(/([-_])([^-_])/g, (_, sep, char) => char.toUpperCase())
-        // Удаляем оставшиеся одиночные - и _
-        .replace(/[-_]/g, '')
-        // Но восстанавливаем двойные подчеркивания (если они были)
-        .replace(/([^_])_([^_])/g, '$1__$2');
+    // Разбиваем строку по всем разделителям (- и _), кроме двойных подчеркиваний
+    const parts = str.split(/(?<!_)_(?!_)|-/);
+    
+    // Первая часть остается без изменений
+    let result = parts[0];
+    
+    // Остальные части преобразуем: первая буква - заглавная
+    for (let i = 1; i < parts.length; i++) {
+        result += ucFirst(parts[i]);
+    }
+    
+    // Восстанавливаем двойные подчеркивания
+    return result.replace(/__/g, '__');
 }
 
 /**
