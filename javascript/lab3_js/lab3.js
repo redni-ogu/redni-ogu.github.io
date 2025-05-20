@@ -47,22 +47,15 @@ export function truncate(str, maxlength) {
  * @returns {string} The camelCase formatted string.
  */
 export function camelize(str) {
+  function ucFirst(s) {
+    if (!s) return s;
+    return s[0].toUpperCase() + s.slice(1);
+  }
+  
   return str.split('-').map((word, index) => {
     return index === 0 ? word : ucFirst(word);
   }).join('');
 }
-
-/**
- * Capitalizes the first letter of a string.
- * @param {string} str - The input string.
- * @returns {string} The string with the first letter capitalized.
- */
-function ucFirst(str) {
-  if (!str) return str;
-  return str[0].toUpperCase() + str.slice(1);
-}
-
-import { fib } from './lab2.js';
 
 /**
  * Generates an array of Fibonacci numbers up to the nth element (exclusive).
@@ -70,7 +63,12 @@ import { fib } from './lab2.js';
  * @returns {bigint[]} An array of Fibonacci numbers.
  */
 export function fibs(n) {
-  return Array.from({ length: n }, (_, i) => fib(i));
+  // Временная реализация, если lab2.js недоступен
+  const result = [0n, 1n];
+  for (let i = 2; i < n; i++) {
+    result[i] = result[i-1] + result[i-2];
+  }
+  return result.slice(0, n);
 }
 
 /**
