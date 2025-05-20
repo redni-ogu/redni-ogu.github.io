@@ -44,13 +44,9 @@ function factorial(n) {
  * @returns {bigint} n-е число Фибоначчи.
  */
 export function fib(n) {
-    let a = 0n;
-    let b = 1n;
-    if (n === 0) return a;
-    for (let i = 2; i <= n; i++) {
-        [a, b] = [b, a + b];
-    }
-    return b;
+  if (n === 0) return 0n;
+  if (n === 1) return 1n;
+  return fib(n - 1) + fib(n - 2);
 }
 
 /**
