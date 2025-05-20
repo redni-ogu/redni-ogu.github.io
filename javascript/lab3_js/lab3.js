@@ -4,10 +4,10 @@
  * @returns {number} Дробная часть числа (0..0.99)
  */
 function getDecimal(num) {
-    const absNum = Math.abs(num);
-    const fractional = absNum - Math.floor(absNum);
+    // Исправлено: более надежная обработка дробной части
+    const fractional = Math.abs(num) % 1;
     const rounded = Math.round(fractional * 100) / 100;
-    return num >= 0 ? rounded : parseFloat((1 - rounded).toFixed(2));
+    return parseFloat(rounded.toFixed(2)); // Гарантируем 2 знака после запятой
 }
 
 /**
@@ -16,13 +16,17 @@ function getDecimal(num) {
  * @returns {string} Нормализованный URL.
  */
 function normalizeUrl(url) {
-    if (url.startsWith('http://')) {
+    // Добавлена проверка на пустую строку
+    if (!url) return 'https://';
+    
+    // Улучшена обработка URL с разными регистрами (HTTP, HTTPS)
+    const lowerUrl = url.toLowerCase();
+    if (lowerUrl.startsWith('http://')) {
         return 'https://' + url.slice(7);
-    } else if (url.startsWith('https://')) {
+    } else if (lowerUrl.startsWith('https://')) {
         return url;
-    } else {
-        return 'https://' + url;
     }
+    return 'https://' + url;
 }
 
 /**
@@ -31,6 +35,7 @@ function normalizeUrl(url) {
  * @returns {boolean} true, если строка содержит спам, иначе false.
  */
 function checkSpam(str) {
+    if (typeof str !== 'string') return false; // Добавлена проверка типа
     const lowerStr = str.toLowerCase();
     return lowerStr.includes('viagra') || lowerStr.includes('xxx');
 }
@@ -42,24 +47,26 @@ function checkSpam(str) {
  * @returns {string} Усечённая строка.
  */
 function truncate(str, maxlength) {
-    if (str.length <= maxlength) {
-        return str;
-    }
-    return str.slice(0, maxlength - 1) + '…';
+    // Добавлены проверки входных параметров
+    if (typeof str !== 'string') return '';
+    if (typeof maxlength !== 'number' || maxlength < 1) return str;
+    
+    return str.length <= maxlength ? str : str.slice(0, maxlength - 1) + '…';
 }
 
 /**
-образует строку с дефисами и подчеркиваниями в camelCase, сохраняя символы в первом слове
+ * Преобразует строку с дефисами и подчеркиваниями в camelCase
  * @param {string} str - Исходная строка
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    // Разделяем только по одиночным дефисам/подчеркиваниям, которые стоят перед буквой
-    return str.replace(/([-_])([a-zA-Z])/g, (_, separator, letter) => {
-        return letter.toUpperCase();
-    });
+    if (typeof str !== 'string') return '';
+    
+    // Улучшенная версия, которая корректно обрабатывает все случаи
+    return str.replace(/([-_][a-z])/gi, (match) => {
+        return match.charAt(1).toUpperCase();
+    }).replace(/[-_]/g, '');
 }
-
 
 /**
  * Преобразует первую букву строки в верхний регистр
@@ -67,7 +74,7 @@ function camelize(str) {
  * @returns {string} Строка с первой заглавной буквой
  */
 function ucFirst(str) {
-    if (!str) return str;
+    if (typeof str !== 'string' || !str.length) return str;
     return str[0].toUpperCase() + str.slice(1);
 }
 
@@ -77,8 +84,11 @@ function ucFirst(str) {
  * @returns {bigint[]} Массив чисел Фибоначчи.
  */
 function fibs(n) {
+    // Добавлена проверка входного параметра
+    if (typeof n !== 'number' || n < 0) return [];
     if (n === 0) return [];
     if (n === 1) return [0n];
+    
     const sequence = [0n, 1n];
     for (let i = 2; i < n; i++) {
         sequence.push(sequence[i - 1] + sequence[i - 2]);
@@ -92,6 +102,8 @@ function fibs(n) {
  * @returns {number[]} Отсортированный по убыванию массив.
  */
 function arrReverseSorted(arr) {
+    // Добавлена проверка на массив
+    if (!Array.isArray(arr)) return [];
     return [...arr].sort((a, b) => b - a);
 }
 
@@ -101,5 +113,6 @@ function arrReverseSorted(arr) {
  * @returns {any[]} Массив уникальных значений.
  */
 function unique(arr) {
+    if (!Array.isArray(arr)) return [];
     return [...new Set(arr)];
 }
