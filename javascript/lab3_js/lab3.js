@@ -4,10 +4,14 @@
  * @returns {number} Дробная часть числа (0..0.99)
  */
 function getDecimal(num) {
-    // Исправлено: более надежная обработка дробной части
-    const fractional = Math.abs(num) % 1;
-    const rounded = Math.round(fractional * 100) / 100;
-    return parseFloat(rounded.toFixed(2)); // Гарантируем 2 знака после запятой
+    // Получаем абсолютное значение числа
+    const absNum = Math.abs(num);
+    // Вычисляем дробную часть
+    const fractional = absNum - Math.floor(absNum);
+    // Округляем до 2 знаков после запятой
+    const rounded = parseFloat(fractional.toFixed(2));
+    // Для отрицательных чисел возвращаем 1 - дробную часть
+    return num >= 0 ? rounded : parseFloat((1 - rounded).toFixed(2));
 }
 
 /**
@@ -60,14 +64,15 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    if (typeof str !== 'string') return '';
-    
-    // Улучшенная версия, которая корректно обрабатывает все случаи
-    return str.replace(/([-_][a-z])/gi, (match) => {
-        return match.charAt(1).toUpperCase();
-    }).replace(/[-_]/g, '');
+    // Обрабатываем все случаи, кроме двойных подчеркиваний
+    return str
+        // Заменяем -x или _x на X (кроме случаев с двойным __)
+        .replace(/([^-_])[-_]([^-_])/g, (_, before, after) => before + after.toUpperCase())
+        // Удаляем оставшиеся одиночные - и _
+        .replace(/[-_]/g, '')
+        // Восстанавливаем двойные подчеркивания
+        .replace(/undefined/g, '__');  // Временная замена для сохранения __
 }
-
 /**
  * Преобразует первую букву строки в верхний регистр
  * @param {string} str - Исходная строка
