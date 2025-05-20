@@ -11,18 +11,18 @@ export function getDecimal(num) {
 }
 
 /**
- * Normalizes a URL to start with 'https://'.
- * @param {string} url - The URL to normalize.
- * @returns {string} The normalized URL with 'https://'.
+ * Нормализует URL, чтобы он начинался с 'https://'.
+ * @param {string} url - URL для нормализации.
+ * @returns {string} Нормализованный URL с 'https://'.
  */
 export function normalizeUrl(url) {
   return url.replace(/^(https?:\/\/)?/i, 'https://');
 }
 
 /**
- * Checks if a string contains 'viagra' or 'XXX' (case-insensitive).
- * @param {string} str - The input string to check.
- * @returns {boolean} True if spam keywords are found, false otherwise.
+ * Проверяет, содержит ли строка 'viagra' или 'XXX' (без учета регистра).
+ * @param {string} str - Входная строка для проверки.
+ * @returns {boolean} True, если найдены спам ключевые слова, иначе false.
  */
 export function checkSpam(str) {
   const lowerStr = str.toLowerCase();
@@ -30,10 +30,10 @@ export function checkSpam(str) {
 }
 
 /**
- * Truncates a string if it exceeds the specified maximum length, appending an ellipsis.
- * @param {string} str - The input string.
- * @param {number} maxlength - The maximum allowed length of the string.
- * @returns {string} The truncated string if necessary.
+ * Обрезает строку, если она превышает указанную максимальную длину, добавляя многоточие.
+ * @param {string} str - Входная строка.
+ * @param {number} maxlength - Максимально допустимая длина строки.
+ * @returns {string} Обрезанная строка, если необходимо.
  */
 export function truncate(str, maxlength) {
   if (str.length > maxlength) {
@@ -43,16 +43,16 @@ export function truncate(str, maxlength) {
 }
 
 /**
- * Converts a hyphen-separated string to camelCase.
- * @param {string} str - The hyphen-separated string.
- * @returns {string} The camelCase formatted string.
+ * Преобразует строку с дефисами в camelCase.
+ * @param {string} str - Строка с дефисами.
+ * @returns {string} Строка в формате camelCase.
  */
 export function camelize(str) {
   function ucFirst(s) {
     if (!s) return s;
     return s[0].toUpperCase() + s.slice(1);
   }
-  
+
   return str.split('-').map((word, index) => {
     return index === 0 ? word : ucFirst(word);
   }).join('');
@@ -71,18 +71,18 @@ export function fibs(n) {
 }
 
 /**
- * Returns a new array sorted in descending order without modifying the original.
- * @param {number[]} arr - The input array to sort.
- * @returns {number[]} A new array sorted in descending order.
+ * Возвращает новый массив, отсортированный в порядке убывания, без изменения исходного.
+ * @param {number[]} arr - Входной массив для сортировки.
+ * @returns {number[]} Новый массив, отсортированный в порядке убывания.
  */
 export function arrReverseSorted(arr) {
   return [...arr].sort((a, b) => b - a);
 }
 
 /**
- * Returns an array of unique elements from the input array.
- * @param {Array} arr - The input array with possible duplicates.
- * @returns {Array} An array of unique elements.
+ * Возвращает массив уникальных элементов из входного массива.
+ * @param {Array} arr - Входной массив с возможными дубликатами.
+ * @returns {Array} Массив уникальных элементов.
  */
 export function unique(arr) {
   return [...new Set(arr)];
