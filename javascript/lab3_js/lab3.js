@@ -62,15 +62,6 @@ export function camelize(str) {
 import { fib as fibs } from '../lab2_js/lab2.js';
 
 /**
- * Generates an array of Fibonacci numbers up to the nth element (exclusive)
- * @param {number} n - Number of elements to generate
- * @returns {bigint[]} Array of Fibonacci numbers
- */
-export function fibs(n) {
-  return Array.from({ length: n }, (_, i) => fibs(i));
-}
-
-/**
  * Returns a new array sorted in descending order without modifying the original.
  * @param {number[]} arr - The input array to sort.
  * @returns {number[]} A new array sorted in descending order.
