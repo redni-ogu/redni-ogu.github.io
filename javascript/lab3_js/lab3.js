@@ -64,10 +64,29 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    // Разделяем только по одиночным дефисам/подчеркиваниям, которые стоят перед буквой
-    return str.replace(/([-_])([a-zA-Z])/g, (_, separator, letter) => {
-        return letter.toUpperCase();
-    });
+    // 1. Сначала заменяем двойные подчеркивания на временный маркер
+    const doubleUnder = /__+/g;
+    const tempMarker = '%%DOUBLE_UNDER%%';
+    let tempParts = [];
+    let lastIndex = 0;
+    
+    // Сохраняем все двойные подчеркивания и их позиции
+    let match;
+    while ((match = doubleUnder.exec(str)) !== null) {
+        tempParts.push(str.slice(lastIndex, match.index));
+        tempParts.push(tempMarker); // Заменяем __ на маркер
+        lastIndex = match.index + match[0].length;
+    }
+    tempParts.push(str.slice(lastIndex));
+    const tempStr = tempParts.join('');
+    
+    // 2. Преобразуем одиночные - и _ в camelCase
+    let result = tempStr.replace(/[-_]([a-z])/gi, (_, char) => 
+        char.toUpperCase()
+    ).replace(/[-_]/g, '');
+    
+    // 3. Восстанавливаем двойные подчеркивания
+    return result.replace(new RegExp(tempMarker, 'g'), '__');
 }
 
 /**
