@@ -6,8 +6,8 @@
 function getDecimal(num) {
     const absNum = Math.abs(num);
     const fractional = absNum - Math.floor(absNum);
-    const rounded = Math.round(fractional * 1e12) / 1e12;
-    return num >= 0 ? parseFloat(rounded.toFixed(2)) : parseFloat((1 - rounded).toFixed(2));
+    const rounded = Math.round(fractional * 100) / 100;
+    return num >= 0 ? rounded : parseFloat((1 - rounded).toFixed(2));
 }
 
 /**
@@ -54,9 +54,9 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase.
  */
 function camelize(str) {
-    return str.replace(/([-_])(.)/g, (_, sep, c) => 
-        sep === '_' && c === '_' ? '__' : c.toUpperCase()
-    );
+    return str.replace(/[-_](.)/g, (_, c) => c.toUpperCase())
+              .replace(/([^_])(_+)([^_])/g, (_, before, underscores, after) => 
+                  before + underscores + after.toUpperCase());
 }
 
 /**
