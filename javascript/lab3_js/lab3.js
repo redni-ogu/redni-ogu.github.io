@@ -54,12 +54,13 @@ function truncate(str, maxlength) {
  * @returns {string} Строка в camelCase.
  */
 function camelize(str) {
-    const tempMarker = '___TEMP___';
-    str = str.replace(/__/g, tempMarker);
-    str = str.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
-    str = str.replace(new RegExp(tempMarker, 'g'), '__');
-
-    return str;
+    return str
+        // Обрабатываем одиночные - и _, следующий символ — в верхний регистр
+        .replace(/([-_])([^-_])/g, (_, sep, char) => char.toUpperCase())
+        // Удаляем оставшиеся одиночные - и _
+        .replace(/[-_]/g, '')
+        // Но восстанавливаем двойные подчеркивания (если они были)
+        .replace(/([^_])_([^_])/g, '$1__$2');
 }
 
 /**
