@@ -61,11 +61,14 @@ export function camelize(str) {
 // Импортируем fib из lab2.js
 import { fib } from '../lab2_js/lab2.js';
 
-// Экспортируем функцию fibs, которая использует fib
+/**
+ * Возвращает массив чисел Фибоначчи до n-го элемента (не включая его)
+ * @param {number} n - Количество элементов
+ * @returns {bigint[]} Массив чисел Фибоначчи
+ */
 export function fibs(n) {
-    return fib(n);
+  return Array.from({ length: n }, (_, i) => fib(i));
 }
-
 
 /**
  * Returns a new array sorted in descending order without modifying the original.
