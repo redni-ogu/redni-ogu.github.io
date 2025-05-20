@@ -4,14 +4,10 @@
  * @returns {number} Дробная часть числа (0..0.99)
  */
 function getDecimal(num) {
-    // Получаем абсолютное значение числа
+    if (typeof num !== 'number') return 0;
     const absNum = Math.abs(num);
-    // Вычисляем дробную часть
     const fractional = absNum - Math.floor(absNum);
-    // Округляем до 2 знаков после запятой
-    const rounded = parseFloat(fractional.toFixed(2));
-    // Для отрицательных чисел возвращаем 1 - дробную часть
-    return num >= 0 ? rounded : parseFloat((1 - rounded).toFixed(2));
+    return parseFloat(fractional.toFixed(2));
 }
 
 /**
@@ -20,15 +16,15 @@ function getDecimal(num) {
  * @returns {string} Нормализованный URL.
  */
 function normalizeUrl(url) {
-    // Добавлена проверка на пустую строку
-    if (!url) return 'https://';
+    if (typeof url !== 'string') return 'https://';
+    if (!url.trim()) return 'https://';
     
-    // Улучшена обработка URL с разными регистрами (HTTP, HTTPS)
-    const lowerUrl = url.toLowerCase();
-    if (lowerUrl.startsWith('http://')) {
-        return 'https://' + url.slice(7);
-    } else if (lowerUrl.startsWith('https://')) {
-        return url;
+    const lowerUrl = url.toLowerCase().trim();
+    if (lowerUrl.startsWith('http://') || lowerUrl.startsWith('https://')) {
+        return 'https://' + url.split('://')[1];
+    }
+    if (lowerUrl.startsWith('www.')) {
+        return 'https://' + url;
     }
     return 'https://' + url;
 }
@@ -39,7 +35,7 @@ function normalizeUrl(url) {
  * @returns {boolean} true, если строка содержит спам, иначе false.
  */
 function checkSpam(str) {
-    if (typeof str !== 'string') return false; // Добавлена проверка типа
+    if (typeof str !== 'string') return false;
     const lowerStr = str.toLowerCase();
     return lowerStr.includes('viagra') || lowerStr.includes('xxx');
 }
@@ -51,7 +47,6 @@ function checkSpam(str) {
  * @returns {string} Усечённая строка.
  */
 function truncate(str, maxlength) {
-    // Добавлены проверки входных параметров
     if (typeof str !== 'string') return '';
     if (typeof maxlength !== 'number' || maxlength < 1) return str;
     
@@ -59,34 +54,13 @@ function truncate(str, maxlength) {
 }
 
 /**
-образует строку с дефисами и подчеркиваниями в camelCase, сохраняя символы в первом слове
+ * Преобразует строку с дефисами и подчеркиваниями в camelCase, сохраняя символы в первом слове
  * @param {string} str - Исходная строка
  * @returns {string} Строка в camelCase
  */
 function camelize(str) {
-    // 1. Сначала заменяем двойные подчеркивания на временный маркер
-    const doubleUnder = /__+/g;
-    const tempMarker = '%%DOUBLE_UNDER%%';
-    let tempParts = [];
-    let lastIndex = 0;
-    
-    // Сохраняем все двойные подчеркивания и их позиции
-    let match;
-    while ((match = doubleUnder.exec(str)) !== null) {
-        tempParts.push(str.slice(lastIndex, match.index));
-        tempParts.push(tempMarker); // Заменяем __ на маркер
-        lastIndex = match.index + match[0].length;
-    }
-    tempParts.push(str.slice(lastIndex));
-    const tempStr = tempParts.join('');
-    
-    // 2. Преобразуем одиночные - и _ в camelCase
-    let result = tempStr.replace(/[-_]([a-z])/gi, (_, char) => 
-        char.toUpperCase()
-    ).replace(/[-_]/g, '');
-    
-    // 3. Восстанавливаем двойные подчеркивания
-    return result.replace(new RegExp(tempMarker, 'g'), '__');
+    if (typeof str !== 'string') return '';
+    return str.replace(/[-_]+(.)?/g, (_, c) => c ? c.toUpperCase() : '');
 }
 
 /**
@@ -99,7 +73,8 @@ function ucFirst(str) {
     return str[0].toUpperCase() + str.slice(1);
 }
 
-import { fib } from '../lab2_js/lab2.js'; 
+// Importing the fib function
+import { fib } from '../lab2_js/lab2.js';
 
 /**
  * Возвращает новый массив, отсортированный по убыванию.
@@ -107,7 +82,6 @@ import { fib } from '../lab2_js/lab2.js';
  * @returns {number[]} Отсортированный по убыванию массив.
  */
 function arrReverseSorted(arr) {
-    // Добавлена проверка на массив
     if (!Array.isArray(arr)) return [];
     return [...arr].sort((a, b) => b - a);
 }
