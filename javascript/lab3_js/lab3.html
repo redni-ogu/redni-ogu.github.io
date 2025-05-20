@@ -24,11 +24,17 @@
 
 <body>
     <!-- скрипт со спецификацией -->
-    <script src="lab3.js"></script>
-
-    <!-- скрипт со спецификацией -->
-    <script>
-        'use strict';
+    <script type="module">
+        import {
+            getDecimal,
+            normalizeUrl,
+            checkSpam,
+            truncate,
+            camelize,
+            fibs,
+            arrReverseSorted,
+            unique
+        } from './lab3.js';
 
         describe("getDecimal", function () {
 
