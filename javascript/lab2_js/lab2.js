@@ -44,11 +44,17 @@ function factorial(n) {
  * @returns {bigint} n-е число Фибоначчи.
  */
 function fib(n) {
-  if (n === 0) return 0n;
-  if (n === 1) return 1n;
-  return fib(n - 1) + fib(n - 2);
+    if (n === 0) return 0n;
+    if (n === 1) return 1n;
+    
+    let a = 0n, b = 1n;
+    for (let i = 2; i <= n; i++) {
+        let c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
 }
-
 /**
  * Сравнивает значение y с x.
  * @param {number} x - Число для сравнения.
