@@ -200,7 +200,7 @@
         });
 
         describe("getSecondsToday", function () {
-            it("let secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds(); => " + secondsToday, function () {
+            it("должен вернуть количество секунд с начала дня", function () {
                 let now = new Date();
                 let secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
                 assert.strictEqual(getSecondsToday(), secondsToday);
