@@ -34,6 +34,9 @@
       padding: 5px;
       margin: 5px;
     }
+    input:invalid {
+      border-color: red;
+    }
   </style>
 </head>
 <body>
@@ -43,15 +46,15 @@
       <h2>Создание книги</h2>
       <div>
         <label for="title">Название:</label>
-        <input type="text" id="title">
+        <input type="text" id="title" required>
       </div>
       <div>
         <label for="pubYear">Год публикации:</label>
-        <input type="number" id="pubYear">
+        <input type="number" id="pubYear" required>
       </div>
       <div>
         <label for="price">Цена:</label>
-        <input type="number" id="price">
+        <input type="number" id="price" required>
       </div>
       <button onclick="createBook()">Создать книгу</button>
       <pre id="bookCreationOutput"></pre>
@@ -61,15 +64,15 @@
       <h2>Изменение свойств книги</h2>
       <div>
         <label for="newTitle">Новое название:</label>
-        <input type="text" id="newTitle">
+        <input type="text" id="newTitle" required>
       </div>
       <div>
         <label for="newPubYear">Новый год публикации:</label>
-        <input type="number" id="newPubYear">
+        <input type="number" id="newPubYear" required>
       </div>
       <div>
         <label for="newPrice">Новая цена:</label>
-        <input type="number" id="newPrice">
+        <input type="number" id="newPrice" required>
       </div>
       <button onclick="modifyBook()">Изменить свойства</button>
       <pre id="bookModificationOutput"></pre>
@@ -91,11 +94,11 @@
       <h2>Работа с классами</h2>
       <div>
         <label for="addClass">Добавить класс:</label>
-        <input type="text" id="addClass">
+        <input type="text" id="addClass" required>
       </div>
       <div>
         <label for="removeClass">Удалить класс:</label>
-        <input type="text" id="removeClass">
+        <input type="text" id="removeClass" required>
       </div>
       <button onclick="manageClasses()">Управление классами</button>
       <pre id="classManagementOutput"></pre>
@@ -118,9 +121,18 @@
   <script>
     // Функции для тестирования
     function createBook() {
-      const title = document.getElementById('title').value;
-      const pubYear = parseInt(document.getElementById('pubYear').value);
-      const price = parseInt(document.getElementById('price').value);
+      const titleInput = document.getElementById('title');
+      const pubYearInput = document.getElementById('pubYear');
+      const priceInput = document.getElementById('price');
+      
+      if (!titleInput.checkValidity() || !pubYearInput.checkValidity() || !priceInput.checkValidity()) {
+        alert("Пожалуйста, заполните все обязательные поля!");
+        return;
+      }
+
+      const title = titleInput.value;
+      const pubYear = parseInt(pubYearInput.value);
+      const price = parseInt(priceInput.value);
 
       const book1 = new Book(title, pubYear, price);
       book1.show();
@@ -128,9 +140,18 @@
     }
 
     function modifyBook() {
-      const newTitle = document.getElementById('newTitle').value;
-      const newPubYear = parseInt(document.getElementById('newPubYear').value);
-      const newPrice = parseInt(document.getElementById('newPrice').value);
+      const newTitleInput = document.getElementById('newTitle');
+      const newPubYearInput = document.getElementById('newPubYear');
+      const newPriceInput = document.getElementById('newPrice');
+      
+      if (!newTitleInput.checkValidity() || !newPubYearInput.checkValidity() || !newPriceInput.checkValidity()) {
+        alert("Пожалуйста, заполните все обязательные поля!");
+        return;
+      }
+
+      const newTitle = newTitleInput.value;
+      const newPubYear = parseInt(newPubYearInput.value);
+      const newPrice = parseInt(newPriceInput.value);
 
       const book1 = new Book('JavaScript', 2020, 500);
       try {
@@ -161,8 +182,16 @@
     }
 
     function manageClasses() {
-      const addClass = document.getElementById('addClass').value;
-      const removeClass = document.getElementById('removeClass').value;
+      const addClassInput = document.getElementById('addClass');
+      const removeClassInput = document.getElementById('removeClass');
+      
+      if (!addClassInput.checkValidity() || !removeClassInput.checkValidity()) {
+        alert("Пожалуйста, заполните все обязательные поля!");
+        return;
+      }
+
+      const addClass = addClassInput.value;
+      const removeClass = removeClassInput.value;
 
       obj.addClass(addClass).removeClass(removeClass);
       document.getElementById('classManagementOutput').textContent = obj.className;
