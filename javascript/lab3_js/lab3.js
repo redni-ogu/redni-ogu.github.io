@@ -59,7 +59,7 @@ export function camelize(str) {
 }
 
 // Импортируем fib из lab2.js
-import { fib } from '../lab2_js/lab2.js';
+import { fib } from '../lab2_js/lab2_save.js';
 
 /**
  * Возвращает массив чисел Фибоначчи до n-го элемента (не включая его)
