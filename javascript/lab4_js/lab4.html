@@ -4,155 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тестирование класса Book</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .section {
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    button {
-      padding: 5px 10px;
-      margin: 5px;
-      cursor: pointer;
-    }
-    pre {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-    input {
-      padding: 5px;
-      margin: 5px;
-    }
-    input:invalid {
-      border-color: red;
-    }
-  </style>
 </head>
 <body>
-  <h1>Тестирование класса Book</h1>
-  <div class="container">
-    <div class="section">
-      <h2>Создание книги</h2>
-      <div>
-        <label for="title">Название:</label>
-        <input type="text" id="title" required>
-      </div>
-      <div>
-        <label for="pubYear">Год публикации:</label>
-        <input type="number" id="pubYear" required>
-      </div>
-      <div>
-        <label for="price">Цена:</label>
-        <input type="number" id="price" required>
-      </div>
-      <button onclick="createBook()">Создать книгу</button>
-      <pre id="bookCreationOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Изменение свойств книги</h2>
-      <div>
-        <label for="newTitle">Новое название:</label>
-        <input type="text" id="newTitle" required>
-      </div>
-      <div>
-        <label for="newPubYear">Новый год публикации:</label>
-        <input type="number" id="newPubYear" required>
-      </div>
-      <div>
-        <label for="newPrice">Новая цена:</label>
-        <input type="number" id="newPrice" required>
-      </div>
-      <button onclick="modifyBook()">Изменить свойства</button>
-      <pre id="bookModificationOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Сортировка книг</h2>
-      <button onclick="sortBooks()">Сортировать книги</button>
-      <pre id="bookSortingOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Проверка на пустоту</h2>
-      <button onclick="checkEmpty()">Проверить пустоту</button>
-      <pre id="emptyCheckOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Работа с классами</h2>
-      <div>
-        <label for="addClass">Добавить класс:</label>
-        <input type="text" id="addClass" required>
-      </div>
-      <div>
-        <label for="removeClass">Удалить класс:</label>
-        <input type="text" id="removeClass" required>
-      </div>
-      <button onclick="manageClasses()">Управление классами</button>
-      <pre id="classManagementOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Преобразование в JSON</h2>
-      <button onclick="convertToJson()">Преобразовать в JSON</button>
-      <pre id="jsonConversionOutput"></pre>
-    </div>
-
-    <div class="section">
-      <h2>Время и дата</h2>
-      <button onclick="getTimeAndDate()">Получить время и дату</button>
-      <pre id="timeAndDateOutput"></pre>
-    </div>
-  </div>
-
+    <h1>Откройте консоль</h1>
   <script src="lab4.js"></script>
   <script>
-    // Функции для тестирования
-    function createBook() {
-      const titleInput = document.getElementById('title');
-      const pubYearInput = document.getElementById('pubYear');
-      const priceInput = document.getElementById('price');
-      
-      if (!titleInput.checkValidity() || !pubYearInput.checkValidity() || !priceInput.checkValidity()) {
-        alert("Пожалуйста, заполните все обязательные поля!");
-        return;
-      }
-
-      const title = titleInput.value;
-      const pubYear = parseInt(pubYearInput.value);
-      const price = parseInt(priceInput.value);
-
-      const book1 = new Book(title, pubYear, price);
-      book1.show();
-      document.getElementById('bookCreationOutput').textContent = `Название: ${book1.title}, Цена: ${book1.price}`;
-    }
-
-    function modifyBook() {
-      const newTitleInput = document.getElementById('newTitle');
-      const newPubYearInput = document.getElementById('newPubYear');
-      const newPriceInput = document.getElementById('newPrice');
-      
-      if (!newTitleInput.checkValidity() || !newPubYearInput.checkValidity() || !newPriceInput.checkValidity()) {
-        alert("Пожалуйста, заполните все обязательные поля!");
-        return;
-      }
-
-      const newTitle = newTitleInput.value;
-      const newPubYear = parseInt(newPubYearInput.value);
-      const newPrice = parseInt(newPriceInput.value);
-
       const book1 = new Book('JavaScript', 2020, 500);
       try {
         book1.title = newTitle;
@@ -162,7 +18,7 @@
       } catch (e) {
         document.getElementById('bookModificationOutput').textContent = e.message;
       }
-    }
+      console.log("---------")
 
     function sortBooks() {
       const books = [
@@ -174,12 +30,14 @@
       books.sort(Book.compare);
       document.getElementById('bookSortingOutput').textContent = JSON.stringify(books, null, 2);
     }
+    console.log("---------")
 
     function checkEmpty() {
       const result1 = isEmpty({});
       const result2 = isEmpty({ [Symbol()]: true });
       document.getElementById('emptyCheckOutput').textContent = `Пустой объект: ${result1}\nОбъект с символом: ${result2}`;
     }
+    console.log("---------")
 
     function manageClasses() {
       const addClassInput = document.getElementById('addClass');
@@ -196,6 +54,7 @@
       obj.addClass(addClass).removeClass(removeClass);
       document.getElementById('classManagementOutput').textContent = obj.className;
     }
+    console.log("---------")
 
     function convertToJson() {
       const jsonString = JSON.stringify(obj, null, 2);
@@ -204,6 +63,7 @@
       const obj2 = JSON.parse(jsonString);
       console.log(JSON.stringify(obj) === JSON.stringify(obj2)); // true
     }
+    console.log("---------")
 
     function getTimeAndDate() {
       const secondsToday = getSecondsToday();
