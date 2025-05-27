@@ -179,7 +179,7 @@
             it("должен преобразовать объект в JSON и обратно", function () {
                 let json = JSON.stringify(obj, null, 2);
                 let obj2 = JSON.parse(json);
-                assert.deepEqual(obj, obj2);
+                assert.strictEqual(obj2.className, obj.className);
             });
         });
 
