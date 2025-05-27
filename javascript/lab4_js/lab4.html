@@ -30,6 +30,10 @@
       border-radius: 5px;
       overflow-x: auto;
     }
+    input {
+      padding: 5px;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
@@ -37,12 +41,36 @@
   <div class="container">
     <div class="section">
       <h2>Создание книги</h2>
+      <div>
+        <label for="title">Название:</label>
+        <input type="text" id="title">
+      </div>
+      <div>
+        <label for="pubYear">Год публикации:</label>
+        <input type="number" id="pubYear">
+      </div>
+      <div>
+        <label for="price">Цена:</label>
+        <input type="number" id="price">
+      </div>
       <button onclick="createBook()">Создать книгу</button>
       <pre id="bookCreationOutput"></pre>
     </div>
 
     <div class="section">
       <h2>Изменение свойств книги</h2>
+      <div>
+        <label for="newTitle">Новое название:</label>
+        <input type="text" id="newTitle">
+      </div>
+      <div>
+        <label for="newPubYear">Новый год публикации:</label>
+        <input type="number" id="newPubYear">
+      </div>
+      <div>
+        <label for="newPrice">Новая цена:</label>
+        <input type="number" id="newPrice">
+      </div>
       <button onclick="modifyBook()">Изменить свойства</button>
       <pre id="bookModificationOutput"></pre>
     </div>
@@ -61,6 +89,14 @@
 
     <div class="section">
       <h2>Работа с классами</h2>
+      <div>
+        <label for="addClass">Добавить класс:</label>
+        <input type="text" id="addClass">
+      </div>
+      <div>
+        <label for="removeClass">Удалить класс:</label>
+        <input type="text" id="removeClass">
+      </div>
       <button onclick="manageClasses()">Управление классами</button>
       <pre id="classManagementOutput"></pre>
     </div>
@@ -78,128 +114,29 @@
     </div>
   </div>
 
+  <script src="lab4.js"></script>
   <script>
-    // 1. Класс Book с конструктором и методом show
-    class Book {
-      constructor(title, pubYear, price) {
-        this.title = title;
-        this.pubYear = pubYear;
-        this.price = price;
-      }
-
-      show() {
-        console.log(`Название: ${this.title}, Цена: ${this.price}`);
-      }
-
-      // 2. Геттеры и сеттеры с проверками
-      get title() {
-        return this._title;
-      }
-
-      set title(value) {
-        if (typeof value === 'string' && value.trim() !== '') {
-          this._title = value;
-        } else {
-          throw new Error('Название не может быть пустым');
-        }
-      }
-
-      get pubYear() {
-        return this._pubYear;
-      }
-
-      set pubYear(value) {
-        if (typeof value === 'number' && value > 0) {
-          this._pubYear = value;
-        } else {
-          throw new Error('Год публикации должен быть положительным числом');
-        }
-      }
-
-      get price() {
-        return this._price;
-      }
-
-      set price(value) {
-        if (typeof value === 'number' && value > 0) {
-          this._price = value;
-        } else {
-          throw new Error('Цена должна быть положительным числом');
-        }
-      }
-
-      // 3. Статический метод compare
-      static compare(a, b) {
-        return a.pubYear - b.pubYear;
-      }
-    }
-
-    // 4. Функция isEmpty
-    function isEmpty(obj) {
-      for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          return false;
-        }
-      }
-      return Object.getOwnPropertySymbols(obj).length === 0;
-    }
-
-    // 5. Объект с методами addClass и removeClass
-    let obj = {
-      className: 'open menu',
-
-      addClass(cls) {
-        if (!this.className.split(' ').includes(cls)) {
-          this.className = this.className ? `${this.className} ${cls}` : cls;
-        }
-        return this;
-      },
-
-      removeClass(cls) {
-        const classes = this.className.split(' ').filter(c => c !== cls);
-        this.className = classes.join(' ');
-        return this;
-      }
-    };
-
-    // 6. Преобразование в JSON и обратно
-    function convertToJson() {
-      const jsonString = JSON.stringify(obj, null, 2);
-      document.getElementById('jsonConversionOutput').textContent = jsonString;
-
-      const obj2 = JSON.parse(jsonString);
-      console.log(JSON.stringify(obj) === JSON.stringify(obj2)); // true
-    }
-
-    // 7. Функция getSecondsToday
-    function getSecondsToday() {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      return Math.floor((now - today) / 1000);
-    }
-
-    // 8. Функция formatDate
-    function formatDate(date) {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = String(date.getFullYear()).slice(-2);
-
-      return `${day}.${month}.${year}`;
-    }
-
     // Функции для тестирования
     function createBook() {
-      const book1 = new Book('JavaScript', 2020, 500);
+      const title = document.getElementById('title').value;
+      const pubYear = parseInt(document.getElementById('pubYear').value);
+      const price = parseInt(document.getElementById('price').value);
+
+      const book1 = new Book(title, pubYear, price);
       book1.show();
       document.getElementById('bookCreationOutput').textContent = `Название: ${book1.title}, Цена: ${book1.price}`;
     }
 
     function modifyBook() {
+      const newTitle = document.getElementById('newTitle').value;
+      const newPubYear = parseInt(document.getElementById('newPubYear').value);
+      const newPrice = parseInt(document.getElementById('newPrice').value);
+
       const book1 = new Book('JavaScript', 2020, 500);
       try {
-        book1.title = 'Новый JavaScript';
-        book1.pubYear = 2022;
-        book1.price = 600;
+        book1.title = newTitle;
+        book1.pubYear = newPubYear;
+        book1.price = newPrice;
         document.getElementById('bookModificationOutput').textContent = `Название: ${book1.title}, Год: ${book1.pubYear}, Цена: ${book1.price}`;
       } catch (e) {
         document.getElementById('bookModificationOutput').textContent = e.message;
@@ -224,8 +161,19 @@
     }
 
     function manageClasses() {
-      obj.addClass('new').removeClass('open');
+      const addClass = document.getElementById('addClass').value;
+      const removeClass = document.getElementById('removeClass').value;
+
+      obj.addClass(addClass).removeClass(removeClass);
       document.getElementById('classManagementOutput').textContent = obj.className;
+    }
+
+    function convertToJson() {
+      const jsonString = JSON.stringify(obj, null, 2);
+      document.getElementById('jsonConversionOutput').textContent = jsonString;
+
+      const obj2 = JSON.parse(jsonString);
+      console.log(JSON.stringify(obj) === JSON.stringify(obj2)); // true
     }
 
     function getTimeAndDate() {
