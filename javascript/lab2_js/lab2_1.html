@@ -19,7 +19,19 @@
 
 <body>
     <!-- Подключаем lab2.js как обычный скрипт (не модуль) -->
-    <script src="lab2.js"></script>
+    <script type="module">
+    import { fib } from './lab2.js'; // Импортируем fib (единственную экспортируемую функцию)
+    
+    // Остальные функции не экспортируются, но они объявлены в lab2.js как глобальные?
+    // Если да — они будут доступны, но лучше явно добавить их в window:
+    window.pow = pow;
+    window.sumTo = sumTo;
+    window.isLeapYear = isLeapYear;
+    window.factorial = factorial;
+    window.compare = compare;
+    window.sum = sum;
+    window.addBlackSpot = addBlackSpot;
+</script>
 
     <!-- Скрипт со спецификацией -->
     <script>
