@@ -5,9 +5,9 @@
  * @returns {number} Результат возведения x в степень n.
  */
 function pow(x, n) {
-    if (n === 0) return 1;
-    if (n < 0) return 1 / pow(x, -n);
-    return x * pow(x, n - 1);
+    let result = 1;
+    for (let i = 0; i < Math.abs(n); i++) result *= x;
+    return n >= 0 ? result : 1 / result;
 }
 
 /**
