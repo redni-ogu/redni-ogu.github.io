@@ -34,6 +34,7 @@
                 assert.strictEqual(book.title, "Title");
                 assert.strictEqual(book.pubYear, 2020);
                 assert.strictEqual(book.price, 1000);
+                console.log("Книга создана с заголовком: " + book.title + ", годом публикации: " + book.pubYear + ", ценой: " + book.price);
             });
 
             it("должен вывести заголовок и цену книги", function () {
@@ -45,35 +46,42 @@
 
                 book.show();
                 assert.strictEqual(logOutput, "Title: 1000");
+                console.log("Заголовок и цена книги: " + logOutput);
 
                 console.log = originalConsoleLog;
             });
 
-            it("должен установить и получить заголовок", function () {
+            it("book.title = 'New Title'; =>'New Title'", function () {
                 book.title = "New Title";
                 assert.strictEqual(book.title, "New Title");
+                console.log("Новый заголовок книги: " + book.title);
             });
 
-            it("не должен установить пустой заголовок", function () {
+            it("assert.throws(() => { book.title = ''; }, Error)", function () {
                 assert.throws(() => { book.title = ""; }, Error);
+                console.log("Попытка установить пустой заголовок вызвала ошибку");
             });
 
-            it("должен установить и получить год публикации", function () {
+            it("assert.strictEqual(book.pubYear, 2021);", function () {
                 book.pubYear = 2021;
                 assert.strictEqual(book.pubYear, 2021);
+                console.log("Новый год публикации: " + book.pubYear);
             });
 
-            it("не должен установить отрицательный год публикации", function () {
+            it("assert.throws(() => { book.pubYear = -2021; }, Error);", function () {
                 assert.throws(() => { book.pubYear = -2021; }, Error);
+                console.log("Попытка установить отрицательный год публикации вызвала ошибку");
             });
 
-            it("должен установить и получить цену", function () {
+            it("assert.strictEqual(book.price, 2000);", function () {
                 book.price = 2000;
                 assert.strictEqual(book.price, 2000);
+                console.log("Новая цена книги: " + book.price);
             });
 
-            it("не должен установить отрицательную цену", function () {
+            it("assert.throws(() => { book.price = -2000; }, Error)", function () {
                 assert.throws(() => { book.price = -2000; }, Error);
+                console.log("Попытка установить отрицательную цену вызвала ошибку");
             });
         });
 
@@ -92,16 +100,19 @@
                 assert.strictEqual(books[0].pubYear, 2019);
                 assert.strictEqual(books[1].pubYear, 2020);
                 assert.strictEqual(books[2].pubYear, 2021);
+                console.log("Книги отсортированы по году публикации: " + books[0].pubYear + ", " + books[1].pubYear + ", " + books[2].pubYear);
             });
         });
 
         describe("isEmpty", function () {
             it("должен вернуть true для пустого объекта", function () {
                 assert.isTrue(isEmpty({}));
+                console.log("Пустой объект: true");
             });
 
             it("должен вернуть false для непустого объекта", function () {
                 assert.isFalse(isEmpty({ [Symbol()]: true }));
+                console.log("Непустой объект: false");
             });
         });
 
@@ -130,24 +141,28 @@
                 };
             });
 
-            it("должен добавить класс, если его еще нет", function () {
+            it("obj.addClass('newClass'); => 'open menu newClass'", function () {
                 obj.addClass('newClass');
                 assert.strictEqual(obj.className, 'open menu newClass');
+                console.log("Добавлен новый класс: " + obj.className);
             });
 
-            it("не должен добавить класс, если он уже существует", function () {
+            it("obj.addClass('open'); => 'open menu'", function () {
                 obj.addClass('open');
                 assert.strictEqual(obj.className, 'open menu');
+                console.log("Класс не изменен: " + obj.className);
             });
 
-            it("должен удалить класс, если он существует", function () {
+            it("obj.removeClass('open'); => 'menu'", function () {
                 obj.removeClass('open');
                 assert.strictEqual(obj.className, 'menu');
+                console.log("Удален класс 'open': " + obj.className);
             });
 
             it("не должен удалить класс, если его нет", function () {
                 obj.removeClass('newClass');
                 assert.strictEqual(obj.className, 'open menu');
+                console.log("Класс не изменен: " + obj.className);
             });
         });
 
@@ -180,21 +195,24 @@
                 let json = JSON.stringify(obj, null, 2);
                 let obj2 = JSON.parse(json);
                 assert.strictEqual(obj2.className, obj.className);
+                console.log("Объект преобразован в JSON и обратно: " + obj2.className);
             });
         });
 
         describe("getSecondsToday", function () {
-            it("должен вернуть количество секунд с начала текущего дня", function () {
+            it("let secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds(); => " + secondsToday, function () {
                 let now = new Date();
                 let secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
                 assert.strictEqual(getSecondsToday(), secondsToday);
+                console.log("Секунды с начала дня: " + secondsToday);
             });
         });
 
         describe("formatDate", function () {
-            it("должен форматировать дату в строку формата 'дд.мм.гг'", function () {
+            it("let date = new Date(2023, 0, 1);=> 01.01.23", function () {
                 let date = new Date(2023, 0, 1);
                 assert.strictEqual(formatDate(date), "01.01.23");
+                console.log("Форматированная дата: " + formatDate(date));
             });
         });
     </script>
