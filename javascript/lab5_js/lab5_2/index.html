@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест createTree в консоли</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест функции createTree</h1>
+    <p>Нажмите кнопку, чтобы создать дерево в консоли</p>
+    <button onclick="testCreateTree()">Тестировать в консоли</button>
+
+    <script>
+        function createTree(container, data) {
+            const tree = createTreeList(data);
+            if (tree) {
+                container.appendChild(tree);
+            }
+        }
+
+        function createTreeList(data) {
+            if (Object.keys(data).length === 0) return null;
+            
+            const ul = document.createElement('ul');
+            
+            for (const key in data) {
+                const li = document.createElement('li');
+                li.textContent = key;
+                
+                const children = createTreeList(data[key]);
+                if (children) {
+                    li.appendChild(children);
+                }
+                
+                ul.appendChild(li);
+            }
+            
+            return ul;
+        }
+
+        function testCreateTree() {
+            console.clear();
+            
+            const data = {
+                "Рыбы": {
+                    "форель": {},
+                    "лосось": {}
+                },
+                "Деревья": {
+                    "Огромные": {
+                        "секвойя": {},
+                        "дуб": {}
+                    },
+                    "Цветковые": {
+                        "яблоня": {},
+                        "магнолия": {}
+                    }
+                }
+            };
+
+            const virtualContainer = document.createElement('div');
+            
+            createTree(virtualContainer, data);
+            
+            console.log("Результат createTree:");
+            console.log(virtualContainer.innerHTML);
+            
+            console.log("\nСтруктура дерева:");
+            logTree(data, 0);
+        }
+
+        function logTree(data, level) {
+            const indent = "  ".repeat(level);
+            
+            for (const key in data) {
+                console.log(indent + key);
+                logTree(data[key], level + 1);
+            }
+        }
+    </script>
+</body>
+</html>
