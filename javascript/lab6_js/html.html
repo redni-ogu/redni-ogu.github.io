@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решение задач</title>
+    <style>
+        .placeholder {
+            color: blue;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+        
+        .modal-buttons {
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            position: relative;
+        }
+        
+        .edit-buttons {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Задача 1: Работа с select -->
+    <h2>Задача 1: Работа с select</h2>
+    <select id="musicSelect">
+        <option value="Rock">Рок</option>
+        <option value="Blues" selected>Блюз</option>
+    </select>
+    
+    <!-- Задача 2: Редактируемый div -->
+    <h2>Задача 2: Редактируемый div</h2>
+    <div id="editableDiv" style="border: 1px solid #000; padding: 10px; margin: 10px 0;">
+        Этот текст можно редактировать (Ctrl+E)
+    </div>
+    
+    <!-- Задача 3: Редактируемая таблица -->
+    <h2>Задача 3: Редактируемая таблица</h2>
+    <table id="editableTable">
+        <tr>
+            <td>Ячейка 1</td>
+            <td>Ячейка 2</td>
+        </tr>
+        <tr>
+            <td>Ячейка 3</td>
+            <td>Ячейка 4</td>
+        </tr>
+    </table>
+    
+    <script>
+        // Задача 1: Работа с select
+        const select = document.getElementById('musicSelect');
+        
+        // 1. Вывести значение и текст текущей выбранной опции
+        console.log('Значение:', select.value);
+        console.log('Текст:', select.options[select.selectedIndex].text);
+        
+        // 2. Добавить опцию и сделать её выбранной
+        const newOption = new Option('Классика', 'Classic');
+        select.add(newOption);
+        select.value = 'Classic';
+        
+        // 3. Реализация плейсхолдера
+        select.dataset.placeholder = 'Выберите жанр музыки';
+        select.classList.add('placeholder');
+        select.selectedIndex = -1;
+        
+        select.addEventListener('focus', function() {
+            if (this.classList.contains('placeholder')) {
+                const placeholderText = this.dataset.placeholder;
+                const placeholderElement = document.createElement('div');
+                placeholderElement.textContent = placeholderText;
+                placeholderElement.style.color = 'blue';
+                placeholderElement.style.position = 'absolute';
+                placeholderElement.style.marginTop = '-20px';
+                placeholderElement.id = 'selectPlaceholder';
+                this.parentNode.insertBefore(placeholderElement, this);
+                this.classList.remove('placeholder');
+                this.selectedIndex = 0;
+            }
+        });
+        
+        select.addEventListener('blur', function() {
+            if (this.selectedIndex <= 0) {
+                const placeholder = document.getElementById('selectPlaceholder');
+                if (placeholder) placeholder.remove();
+                this.classList.add('placeholder');
+            }
+        });
+        
+        // Задача 2: Редактируемый div
+        const editableDiv = document.getElementById('editableDiv');
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                if (!editableDiv.querySelector('textarea')) {
+                    const textarea = document.createElement('textarea');
+                    textarea.style.width = editableDiv.offsetWidth + 'px';
+                    textarea.style.height = editableDiv.offsetHeight + 'px';
+                    textarea.value = editableDiv.innerHTML;
+                    editableDiv.innerHTML = '';
+                    editableDiv.appendChild(textarea);
+                    textarea.focus();
+                }
+            } else if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                const textarea = editableDiv.querySelector('textarea');
+                if (textarea) {
+                    editableDiv.innerHTML = textarea.value;
+                }
+            } else if (e.key === 'Escape') {
+                const textarea = editableDiv.querySelector('textarea');
+                if (textarea) {
+                    editableDiv.innerHTML = textarea.dataset.original || editableDiv.innerHTML;
+                }
+            }
+        });
+        
+        // Задача 3: Редактируемая таблица
+        const table = document.getElementById('editableTable');
+        let currentEditingCell = null;
+        
+        table.addEventListener('click', function(e) {
+            const td = e.target.closest('td');
+            if (!td || currentEditingCell) return;
+            
+            currentEditingCell = td;
+            const originalContent = td.innerHTML;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = originalContent;
+            textarea.style.width = td.offsetWidth + 'px';
+            textarea.style.height = td.offsetHeight + 'px';
+            textarea.style.resize = 'none';
+            
+            const buttonsDiv = document.createElement('div');
+            buttonsDiv.className = 'edit-buttons';
+            
+            const okButton = document.createElement('button');
+            okButton.textContent = 'OK';
+            okButton.onclick = function() {
+                td.innerHTML = textarea.value;
+                cleanupEditing();
+            };
+            
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'ОТМЕНА';
+            cancelButton.onclick = function() {
+                td.innerHTML = originalContent;
+                cleanupEditing();
+            };
+            
+            buttonsDiv.appendChild(okButton);
+            buttonsDiv.appendChild(cancelButton);
+            
+            td.innerHTML = '';
+            td.appendChild(textarea);
+            td.appendChild(buttonsDiv);
+            textarea.focus();
+            
+            function cleanupEditing() {
+                currentEditingCell = null;
+            }
+        });
+        
+        // Задача 4: Функция showPrompt
+        function showPrompt(html, callback) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            
+            modal.innerHTML = `
+                <div>${html}</div>
+                <input type="text">
+                <div class="modal-buttons">
+                    <button id="okButton">OK</button>
+                    <button id="cancelButton">ОТМЕНА</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            const input = modal.querySelector('input');
+            const okButton = modal.querySelector('#okButton');
+            const cancelButton = modal.querySelector('#cancelButton');
+            
+            input.focus();
+            
+            function complete(value) {
+                document.body.removeChild(overlay);
+                callback(value);
+            }
+            
+            okButton.addEventListener('click', function() {
+                complete(input.value);
+            });
+            
+            cancelButton.addEventListener('click', function() {
+                complete(null);
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    complete(input.value);
+                } else if (e.key === 'Escape') {
+                    complete(null);
+                }
+            });
+            
+            // Блокировка Tab для других элементов
+            modal.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    const focusable = modal.querySelectorAll('input, button');
+                    const first = focusable[0];
+                    const last = focusable[focusable.length - 1];
+                    
+                    if (e.shiftKey) {
+                        if (document.activeElement === first) {
+                            last.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === last) {
+                            first.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Пример использования showPrompt
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                showPrompt("Введите что-нибудь<br>... умное:)", function(value) {
+                    alert(value);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
