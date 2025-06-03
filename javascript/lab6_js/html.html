@@ -50,6 +50,12 @@
             bottom: -30px;
             left: 0;
         }
+        
+        #selectedGenre {
+            margin-top: 5px;
+            font-style: italic;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +65,7 @@
         <option value="Rock">Рок</option>
         <option value="Blues" selected>Блюз</option>
     </select>
+    <div id="selectedGenre"></div>
     
     <!-- Задача 2: Редактируемый div -->
     <h2>Задача 2: Редактируемый div</h2>
@@ -82,6 +89,20 @@
     <script>
         // Задача 1: Работа с select
         const select = document.getElementById('musicSelect');
+        const selectedGenreDisplay = document.getElementById('selectedGenre');
+        
+        // Функция для обновления отображения выбранного жанра
+        function updateSelectedGenre() {
+            if (select.selectedIndex >= 0) {
+                const selectedText = select.options[select.selectedIndex].text;
+                selectedGenreDisplay.textContent = `Вы выбрали: ${selectedText}`;
+            } else {
+                selectedGenreDisplay.textContent = '';
+            }
+        }
+        
+        // Инициализация при загрузке
+        updateSelectedGenre();
         
         // 1. Вывести значение и текст текущей выбранной опции
         console.log('Значение:', select.value);
@@ -91,11 +112,13 @@
         const newOption = new Option('Классика', 'Classic');
         select.add(newOption);
         select.value = 'Classic';
+        updateSelectedGenre(); // Обновляем отображение
         
         // 3. Реализация плейсхолдера
         select.dataset.placeholder = 'Выберите жанр музыки';
         select.classList.add('placeholder');
         select.selectedIndex = -1;
+        updateSelectedGenre(); // Очищаем отображение
         
         select.addEventListener('focus', function() {
             if (this.classList.contains('placeholder')) {
@@ -109,6 +132,7 @@
                 this.parentNode.insertBefore(placeholderElement, this);
                 this.classList.remove('placeholder');
                 this.selectedIndex = 0;
+                updateSelectedGenre(); // Обновляем отображение
             }
         });
         
@@ -117,9 +141,16 @@
                 const placeholder = document.getElementById('selectPlaceholder');
                 if (placeholder) placeholder.remove();
                 this.classList.add('placeholder');
+                updateSelectedGenre(); // Очищаем отображение
             }
         });
         
+        // Обработчик изменения выбора
+        select.addEventListener('change', function() {
+            updateSelectedGenre();
+        });
+        
+        // Остальной код остается без изменений...
         // Задача 2: Редактируемый div
         const editableDiv = document.getElementById('editableDiv');
         
