@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Решение задач</title>
+    <title>Задания JavaScript</title>
     <style>
+        /* Стили для задания 2 */
         .placeholder {
             color: blue;
         }
         
+        .hint {
+            position: absolute;
+            font-size: 12px;
+            color: blue;
+            margin-top: -18px;
+            background: white;
+            padding: 0 5px;
+        }
+        
+        /* Стили для задания 5 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -22,59 +33,84 @@
             z-index: 1000;
         }
         
-        .modal {
+        .prompt-form {
             background: white;
             padding: 20px;
             border-radius: 5px;
             width: 300px;
         }
         
-        .modal-buttons {
-            margin-top: 10px;
-            text-align: right;
-        }
-        
-        table {
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        td {
-            border: 1px solid #000;
+        .prompt-form input {
+            width: 100%;
             padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        
+        .prompt-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Стили для задания 4 */
+        .edit-area {
             position: relative;
         }
         
         .edit-buttons {
             position: absolute;
-            bottom: -30px;
-            left: 0;
+            bottom: -40px;
+            right: 0;
         }
         
-        #selectedGenre {
-            margin-top: 5px;
-            font-style: italic;
-            color: green;
+        .edit-buttons button {
+            margin-left: 5px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            position: relative;
+            min-width: 100px;
+            min-height: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            resize: none;
         }
     </style>
 </head>
 <body>
-    <!-- Задача 1: Работа с select -->
-    <h2>Задача 1: Работа с select</h2>
+    <!-- Задание 1 -->
+    <h2>Задание 1</h2>
     <select id="musicSelect">
         <option value="Rock">Рок</option>
-        <option value="Blues" selected>Блюз</option>
+        <option value="Blues">Блюз</option>
+        <option value="Classic" selected>Классика</option>
     </select>
-    <div id="selectedGenre"></div>
+    <div id="output1"></div>
     
-    <!-- Задача 2: Редактируемый div -->
-    <h2>Задача 2: Редактируемый div</h2>
-    <div id="editableDiv" style="border: 1px solid #000; padding: 10px; margin: 10px 0;">
-        Этот текст можно редактировать (Ctrl+E)
+    <!-- Задание 2 -->
+    <h2>Задание 2</h2>
+    <input type="text" id="placeholderInput" data-placeholder="Введите текст" class="placeholder" value="Введите текст">
+    
+    <!-- Задание 3 -->
+    <h2>Задание 3</h2>
+    <div id="editableDiv" style="border: 1px solid #ccc; padding: 10px; width: 300px; min-height: 50px;">
+        Нажмите Ctrl+E для редактирования этого текста
     </div>
     
-    <!-- Задача 3: Редактируемая таблица -->
-    <h2>Задача 3: Редактируемая таблица</h2>
+    <!-- Задание 4 -->
+    <h2>Задание 4</h2>
     <table id="editableTable">
         <tr>
             <td>Ячейка 1</td>
@@ -86,88 +122,78 @@
         </tr>
     </table>
     
+    <!-- Задание 5 -->
+    <h2>Задание 5</h2>
+    <button id="showPromptBtn">Показать prompt</button>
+    
     <script>
-        // Задача 1: Работа с select
+        // Задание 1
+        document.addEventListener('DOMContentLoaded', function() {
         const select = document.getElementById('musicSelect');
-        const selectedGenreDisplay = document.getElementById('selectedGenre');
+        const output1 = document.getElementById('output1');
         
-        // Функция для обновления отображения выбранного жанра
-        function updateSelectedGenre() {
-            if (select.selectedIndex >= 0) {
-                const selectedText = select.options[select.selectedIndex].text;
-                selectedGenreDisplay.textContent = `Вы выбрали: ${selectedText}`;
-            } else {
-                selectedGenreDisplay.textContent = '';
-            }
+        // Функция для обновления текста
+        function updateSelectedText() {
+            const selectedOption = select.options[select.selectedIndex];
+            output1.innerHTML = `Выбранное значение: ${selectedOption.value}, текст: ${selectedOption.text}`;
         }
         
-        // Инициализация при загрузке
-        updateSelectedGenre();
+        // Инициализация - добавляем обработчик события и сразу обновляем текст
+        select.addEventListener('change', updateSelectedText);
+        updateSelectedText(); // Вызываем сразу, чтобы показать текущее значение
+        });
         
-        // 1. Вывести значение и текст текущей выбранной опции
-        console.log('Значение:', select.value);
-        console.log('Текст:', select.options[select.selectedIndex].text);
+        // Задание 2
+        const placeholderInput = document.getElementById('placeholderInput');
         
-        // 2. Добавить опцию и сделать её выбранной
-        const newOption = new Option('Классика', 'Classic');
-        select.add(newOption);
-        select.value = 'Classic';
-        updateSelectedGenre(); // Обновляем отображение
-        
-        // 3. Реализация плейсхолдера
-        select.dataset.placeholder = 'Выберите жанр музыки';
-        select.classList.add('placeholder');
-        select.selectedIndex = -1;
-        updateSelectedGenre(); // Очищаем отображение
-        
-        select.addEventListener('focus', function() {
-            if (this.classList.contains('placeholder')) {
-                const placeholderText = this.dataset.placeholder;
-                const placeholderElement = document.createElement('div');
-                placeholderElement.textContent = placeholderText;
-                placeholderElement.style.color = 'blue';
-                placeholderElement.style.position = 'absolute';
-                placeholderElement.style.marginTop = '-20px';
-                placeholderElement.id = 'selectPlaceholder';
-                this.parentNode.insertBefore(placeholderElement, this);
+        placeholderInput.addEventListener('focus', function() {
+            if (this.value === this.dataset.placeholder) {
+                this.value = '';
                 this.classList.remove('placeholder');
-                this.selectedIndex = 0;
-                updateSelectedGenre(); // Обновляем отображение
+                
+                const hint = document.createElement('div');
+                hint.className = 'hint';
+                hint.textContent = this.dataset.placeholder;
+                this.parentNode.insertBefore(hint, this);
             }
         });
         
-        select.addEventListener('blur', function() {
-            if (this.selectedIndex <= 0) {
-                const placeholder = document.getElementById('selectPlaceholder');
-                if (placeholder) placeholder.remove();
+        placeholderInput.addEventListener('blur', function() {
+            const hint = this.previousElementSibling;
+            
+            if (hint && hint.className === 'hint') {
+                this.parentNode.removeChild(hint);
+            }
+            
+            if (this.value === '') {
+                this.value = this.dataset.placeholder;
                 this.classList.add('placeholder');
-                updateSelectedGenre(); // Очищаем отображение
             }
         });
         
-        // Обработчик изменения выбора
-        select.addEventListener('change', function() {
-            updateSelectedGenre();
-        });
-        
-        // Остальной код остается без изменений...
-        // Задача 2: Редактируемый div
+        // Задание 3
         const editableDiv = document.getElementById('editableDiv');
+        let savedContent = '';
         
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.key === 'e') {
                 e.preventDefault();
+                
                 if (!editableDiv.querySelector('textarea')) {
+                    savedContent = editableDiv.innerHTML;
+                    
                     const textarea = document.createElement('textarea');
                     textarea.style.width = editableDiv.offsetWidth + 'px';
                     textarea.style.height = editableDiv.offsetHeight + 'px';
-                    textarea.value = editableDiv.innerHTML;
+                    textarea.value = savedContent;
+                    
                     editableDiv.innerHTML = '';
                     editableDiv.appendChild(textarea);
                     textarea.focus();
                 }
             } else if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
+                
                 const textarea = editableDiv.querySelector('textarea');
                 if (textarea) {
                     editableDiv.innerHTML = textarea.value;
@@ -175,135 +201,139 @@
             } else if (e.key === 'Escape') {
                 const textarea = editableDiv.querySelector('textarea');
                 if (textarea) {
-                    editableDiv.innerHTML = textarea.dataset.original || editableDiv.innerHTML;
+                    editableDiv.innerHTML = savedContent;
                 }
             }
         });
         
-        // Задача 3: Редактируемая таблица
-        const table = document.getElementById('editableTable');
+        // Задание 4
+        const editableTable = document.getElementById('editableTable');
         let currentEditingCell = null;
         
-        table.addEventListener('click', function(e) {
+        editableTable.addEventListener('click', function(e) {
             const td = e.target.closest('td');
             if (!td || currentEditingCell) return;
             
             currentEditingCell = td;
             const originalContent = td.innerHTML;
             
+            // Создаем textarea
             const textarea = document.createElement('textarea');
             textarea.value = originalContent;
-            textarea.style.width = td.offsetWidth + 'px';
-            textarea.style.height = td.offsetHeight + 'px';
-            textarea.style.resize = 'none';
             
+            // Создаем кнопки
             const buttonsDiv = document.createElement('div');
             buttonsDiv.className = 'edit-buttons';
             
             const okButton = document.createElement('button');
             okButton.textContent = 'OK';
-            okButton.onclick = function() {
-                td.innerHTML = textarea.value;
-                cleanupEditing();
-            };
             
             const cancelButton = document.createElement('button');
             cancelButton.textContent = 'ОТМЕНА';
-            cancelButton.onclick = function() {
-                td.innerHTML = originalContent;
-                cleanupEditing();
-            };
             
             buttonsDiv.appendChild(okButton);
             buttonsDiv.appendChild(cancelButton);
             
+            // Очищаем ячейку и добавляем элементы
             td.innerHTML = '';
             td.appendChild(textarea);
             td.appendChild(buttonsDiv);
             textarea.focus();
             
-            function cleanupEditing() {
-                currentEditingCell = null;
-            }
-        });
-        
-        // Задача 4: Функция showPrompt
-        function showPrompt(html, callback) {
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay';
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            
-            modal.innerHTML = `
-                <div>${html}</div>
-                <input type="text">
-                <div class="modal-buttons">
-                    <button id="okButton">OK</button>
-                    <button id="cancelButton">ОТМЕНА</button>
-                </div>
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            const input = modal.querySelector('input');
-            const okButton = modal.querySelector('#okButton');
-            const cancelButton = modal.querySelector('#cancelButton');
-            
-            input.focus();
-            
-            function complete(value) {
-                document.body.removeChild(overlay);
-                callback(value);
-            }
-            
+            // Обработчики для кнопок
             okButton.addEventListener('click', function() {
-                complete(input.value);
+                td.innerHTML = textarea.value;
+                currentEditingCell = null;
             });
             
             cancelButton.addEventListener('click', function() {
-                complete(null);
+                td.innerHTML = originalContent;
+                currentEditingCell = null;
+            });
+        });
+        
+        // Задание 5
+        document.getElementById('showPromptBtn').addEventListener('click', function() {
+            showPrompt("Введите что-нибудь<br>... умное :)", function(value) {
+                alert(value);
+            });
+        });
+        
+        function showPrompt(html, callback) {
+            // Создаем оверлей
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            // Создаем форму
+            const form = document.createElement('div');
+            form.className = 'prompt-form';
+            form.innerHTML = `
+                <div class="prompt-message">${html}</div>
+                <input type="text" class="prompt-input">
+                <div class="prompt-buttons">
+                    <button class="cancel-btn">ОТМЕНА</button>
+                    <button class="ok-btn">OK</button>
+                </div>
+            `;
+            
+            overlay.appendChild(form);
+            document.body.appendChild(overlay);
+            
+            const input = form.querySelector('.prompt-input');
+            const okBtn = form.querySelector('.ok-btn');
+            const cancelBtn = form.querySelector('.cancel-btn');
+            
+            input.focus();
+            
+            // Обработчики событий
+            function close(result) {
+                document.body.removeChild(overlay);
+                callback(result);
+            }
+            
+            okBtn.addEventListener('click', function() {
+                close(input.value);
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                close(null);
+            });
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                close(input.value);
+            });
+            
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    close(null);
+                }
             });
             
             input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    complete(input.value);
-                } else if (e.key === 'Escape') {
-                    complete(null);
+                if (e.key === 'Escape') {
+                    close(null);
                 }
             });
             
-            // Блокировка Tab для других элементов
-            modal.addEventListener('keydown', function(e) {
+            // Обработка Tab/Shift+Tab
+            const focusableElements = [input, okBtn, cancelBtn];
+            form.addEventListener('keydown', function(e) {
                 if (e.key === 'Tab') {
-                    const focusable = modal.querySelectorAll('input, button');
-                    const first = focusable[0];
-                    const last = focusable[focusable.length - 1];
+                    e.preventDefault();
+                    const currentIndex = focusableElements.indexOf(document.activeElement);
+                    let nextIndex;
                     
                     if (e.shiftKey) {
-                        if (document.activeElement === first) {
-                            last.focus();
-                            e.preventDefault();
-                        }
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : focusableElements.length - 1;
                     } else {
-                        if (document.activeElement === last) {
-                            first.focus();
-                            e.preventDefault();
-                        }
+                        nextIndex = currentIndex < focusableElements.length - 1 ? currentIndex + 1 : 0;
                     }
+                    
+                    focusableElements[nextIndex].focus();
                 }
             });
         }
-        
-        // Пример использования showPrompt
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                showPrompt("Введите что-нибудь<br>... умное:)", function(value) {
-                    alert(value);
-                });
-            }, 1000);
-        });
     </script>
 </body>
 </html>
